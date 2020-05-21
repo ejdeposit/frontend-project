@@ -1,0 +1,7 @@
+to do:
+- add event listeners to checkboxes
+- add check to data structure to see if data already been called
+- get value from check box and use to make api call
+- parse api data and return from function that makes call
+- better date format?
+- add data to graph

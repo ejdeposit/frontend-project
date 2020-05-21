@@ -3,18 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JavaScript API Exercise</title>
+    <!--
     <link
       rel="stylesheet"
       type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
-    />
+    />-->
+    <link rel="stylesheet" href="style.css" />
+    <title>Covid Dashboard App</title>
   </head>
-  <body class="bg-info">
-    <section class="container border rounded bg-light w-50 mx-auto mt-5 p-3">
-      <h2 class="mt-2 mb-4">SWAPI Characters</h2>
-      <ul id="results"></ol>
-    </section>
+  <body>
+    Hello world!
+    <div id="state-input">
+      <h3>States</h3>
+      <input type="checkbox" class="state" id="washington" name="washington" value="WA">
+      <label for="washington">Washington</label>
+    </div>
+    <div id="output">graph
+      <canvas id="myChart" aria-label="donut chart" role="img"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="app.js"></script>
   </body>
 </html>
