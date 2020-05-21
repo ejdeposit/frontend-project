@@ -111,8 +111,14 @@ async function make_graphs(states){
     //make graph
     var ctx = document.getElementById('myChart');
 
-    var options = {responsive: true, // Instruct chart js to respond nicely.
-    maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+    var options = {
+        responsive: true, // Instruct chart js to respond nicely.
+        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+        scales: {
+            xAxes: [{
+              type: 'time'
+            }]
+          }
     };
 
     // End Defining data
@@ -191,6 +197,17 @@ function make_datasets(datas){
     states.forEach(state => {
         //filter anything out that isn't number
         let points = datas[state].filter(point => typeof point.y === 'number');
+
+        //convert to date objects
+        points = datas[state].map(point => {
+            xStr= point.x.toString()
+            let year = xStr.slice(0,4) 
+            let month = xStr.slice(4,6)
+            let day = xStr.slice(6,8)
+            let newDate =  new Date(year, month, day)
+            point.x = newDate.toLocaleString()
+            console.log(point.x)
+        })
 
         let randomColor = randColor()
 
