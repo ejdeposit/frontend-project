@@ -1,4 +1,11 @@
-function make_graph(chart, points){
+
+//  ------------------------------------------------
+//                   make lien graph for single state
+//                   from single fetch to api 
+//  ------------------------------------------------
+
+function make_graph(chartID, points){
+    // https://codepen.io/DanEnglishby/pen/dqyyzp
     var ctx = document.getElementById('myChart');
 
     var options = {responsive: true, // Instruct chart js to respond nicely.
@@ -21,6 +28,9 @@ function make_graph(chart, points){
 }
 
 function get_state_dailies(st){
+    /*
+    makes single call to api to get daily totals for one state using fetch api.  makes chart for just one state
+    */
     let state= st
     let requesturl= `https://covidtracking.com/api/v1/states/${state}/daily.json`
 
@@ -55,6 +65,8 @@ function get_state_dailies(st){
 }
 
 async function make_call(st){
+    /* makes call for single state and returns points including new deaths and dates in format provided by api
+    */
     let state= st
     let requesturl= `https://covidtracking.com/api/v1/states/${state}/daily.json`
     return new Promise(resolve=>{
@@ -78,7 +90,45 @@ async function make_call(st){
         })
     })
 }
+
+//  ------------------------------------------------
+//                  make multi line graph 
+//                  fom series of async calls 
+//  ------------------------------------------------
+
+
+async function make_graphs(states){
+    datas = await make_calls(states) 
+    console.log(datas)
+
+    //parse data from call.  pull out dates, and check numbers return list of 
+    let dataSubsets = get_data_subsets(datas, 'date', 'deathIncrease')
+    console.log(dataSubsets)
+
+    //make list of data set objects
+    let datasets = make_datasets(dataSubsets)
+
+    //make graph
+    var ctx = document.getElementById('myChart');
+
+    var options = {responsive: true, // Instruct chart js to respond nicely.
+    maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+    };
+
+    // End Defining data
+    var myChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        datasets: datasets
+    },
+    options: options
+    });
+}
+
 let get_data_async = async (st) => {
+    /* 
+    makes single async call to api for one state daily numbers
+    */
     let state= st
     let requesturl= `https://covidtracking.com/api/v1/states/${state}/daily.json`
     let response = await fetch(requesturl)
@@ -86,24 +136,75 @@ let get_data_async = async (st) => {
     return data
 }
 
-// need to await the result of this function before making graphs
 async function make_calls(states){
+    /* 
+    makes series of async calls for multiple states, awaits on each call
+    */
     // list of lists
     pointss=[]
-
+    datas = {}
     //let newPoints = await get_data_async(states[0])
     //pointss.push(newPoints)
     for await(let state of states){
-        let newPoints = await get_data_async(state)
-        pointss.push(newPoints)
+        let newPoints = await get_data_async(state);
+        pointss.push(newPoints);
+        datas[state] = newPoints;
     }
-    return pointss
+    //return pointss
+    return datas;
 }
 
-async function make_graphs(states){
-    pointss = await make_calls(states) 
-    console.log(pointss)
+function get_data_subsets(datas, x, y){
+    let states = Object.keys(datas);
+    // key state: value list of point objects
+    let subsets = {}
+    states.forEach(state => {
+        let points = []
+        datas[state].forEach( day => {
+            let newPoint = {}
+            newPoint.x=day.date
+            newPoint.y=day.deathIncrease
+            points.push(newPoint)
+        })
+        subsets[state]= points
+    })
+    return subsets
 }
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
+function randColor(){
+    let randColor = ''
+    for(let i=0; i<6; i++){
+        let randNum = getRandomInt(16)
+        hexString = randNum.toString(16);
+        randColor = randColor + hexString
+    }
+    return '#' + randColor
+}
+
+function make_datasets(datas){
+    datasets=[];
+    states= Object.keys(datas);
+    states.forEach(state => {
+        //filter anything out that isn't number
+        let points = datas[state].filter(point => typeof point.y === 'number');
+
+        let randomColor = randColor()
+
+        let dataSet = {
+            label: state,
+            data: points,
+            borderColor: randomColor, // Add custom color border            
+            backgroundColor: randomColor, // Add custom color background (Points and Fill)
+        }
+        datasets.push(dataSet)
+    })
+    return datasets
+}
+
 
 console.log('hello world!')
 
