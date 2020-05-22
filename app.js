@@ -169,6 +169,8 @@ function make_datasets(datas, x, y){
                 data: points,
                 borderColor: randomColor, // Add custom color border            
                 backgroundColor: randomColor, // Add custom color background (Points and Fill)
+                showLine: true,
+                fill: false
             }
             datasets.push(dataSet)
         }); 
@@ -289,50 +291,47 @@ async function make_graphs_numbers(states){
     });
 }
 
+//  ------------------------------------------------
+//             get check box input from user            
+//  ------------------------------------------------
+
+function get_checked_states(){
+    // returns list of states from checked checkboxes
+    checkedStates = []
+    console.log('get checked states')
+
+    let checkboxes = Object.values(document.getElementsByClassName('state'))
+    
+    // filter out non-checked checkboxes
+    checkboxes = checkboxes.filter(checkbox => checkbox.checked)
+
+    // get value of each checkbox
+    
+    checkboxes.forEach(checkbox =>{
+        //console.log(checkbox.defaultValue)
+        checkedStates.push(checkbox.defaultValue)
+    })
+    return checkedStates
+}
+
 console.log('hello world!')
-
-//let points = get_state_dailies('CA')
-//make_date_graphs(['CA', 'WA'])
-
-let inputDiv = document.querySelector('div#state-input')
-
-childNodes = inputDiv.childNodes
-/*
-console.log(typeof childNodes)
-console.log(Object.keys(childNodes))
-console.log(Object.values(childNodes))
-childNodes.forEach(child=>{
-    console.log(typeof child)
-    console.log(child)
-})
-*/
 
 // get all checkboxes and add event listener
 let checkboxes = Object.values(document.getElementsByClassName('state'))
-//let checkboxes = Object.values(childNodes).filter(obj => obj.className === 'state')
 
 // add event listener to each checkbox
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', event =>{
-        console.log('do something when check boxes change')
         //get list of states that are currently checked
+        let checkedStates = get_checked_states()
+        //console.log(checkedStates)
+
         //make graph for each state
+        make_date_graphs(checkedStates)
+
     })
 })
 
-// filter out non-checked checkboxes
-checkboxes = checkboxes.filter(checkbox => checkbox.checked)
 
-// get value of each checkbox
-checkboxes.forEach(checkbox =>{
-    //console.log(checkbox)
-    //console.log(checkbox.checked)
-    console.log(checkbox.defaultValue)
-})
-//console.log(checkboxes)
 
-//filter out not checked check boxes
-/*
-console.log(checkboxes)
-checkbo
-*/
+
