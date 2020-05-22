@@ -96,23 +96,37 @@ async function make_call(st){
 //                  fom series of async calls 
 //  ------------------------------------------------
 
+// functions for graphing by date
 
-async function make_graphs_numbers(states){
+async function make_date_graphs(states){
     datas = await make_calls(states) 
-    console.log(datas)
+    //console.log(datas)
 
     //parse data from call.  pull out dates, and check numbers return list of 
-    let dataSubsets = get_data_subsets(datas, 'date', 'deathIncrease')
+    let dataSubsets = get_data_subsets2(datas, ['date', 'deathIncrease'])
+    console.log('datasubsets from get_data_subsets')
     console.log(dataSubsets)
 
+    
     //make list of data set objects
-    let datasets = make_datasets(dataSubsets)
+    let datasets = make_datasets(dataSubsets, 'date', 'deathIncrease')
+    //console.log('datasets from make_datasets')
+    //console.log(datasets)
 
     //make graph
     var ctx = document.getElementById('myChart');
-
-    var options = {responsive: true, // Instruct chart js to respond nicely.
-    maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+    
+    var options = {
+        responsive: true, // Instruct chart js to respond nicely.
+        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+        scales: {
+            xAxes: [{
+              type: 'time',
+              time: {
+                unit: 'day'
+            }
+            }]
+          }
     };
 
     // End Defining data
@@ -123,7 +137,79 @@ async function make_graphs_numbers(states){
     },
     options: options
     });
+    
 }
+
+function make_datasets(datas, x, y){
+    /*
+    datas: state: array of data
+    x,y: x and y coordinate to make points from
+    */
+    datasets=[];
+    states= Object.keys(datas);
+        states.forEach(state =>{
+            let randomColor = randColor()
+
+            points = datas[state].map(date =>{
+                let dateStr= date[x].toString()
+                let year = dateStr.slice(0,4) 
+                let month = dateStr.slice(4,6)
+                let day = dateStr.slice(6,8)
+                let point={
+                    x: new Date(year, month, day),
+                    y: date[y]
+                }
+                return point
+            })
+            console.log(points)
+
+            let dataSet = {
+                label: state,
+                data: points,
+                borderColor: randomColor, // Add custom color border            
+                backgroundColor: randomColor, // Add custom color background (Points and Fill)
+            }
+            datasets.push(dataSet)
+        }); 
+    return datasets
+}
+
+function data_to_date_points(){
+    points = datas[state].map(point => {
+        xStr= point.x.toString()
+        let year = xStr.slice(0,4) 
+        let month = xStr.slice(4,6)
+        let day = xStr.slice(6,8)
+        point.x =  new Date(year, month, day)
+        //console.log(point.x)
+    })
+}
+
+function get_data_subsets2(datas, members){
+    /*
+    takes in object with state:data pairs
+    outputs subset of data
+    */
+    let states = Object.keys(datas);
+    // key state: value list of point objects
+    let subset = {}
+
+    states.forEach(state => {
+        let points = []
+        datas[state].forEach( day => {
+            let newPoint = {}
+            members.forEach(member => {
+                newPoint[member]=day[member]
+            })
+            points.push(newPoint)
+        })
+        subset[state]= points
+    })
+
+    return subset
+}
+
+// same function for both date graphs and number graphs
 
 let get_data_async = async (st) => {
     /* 
@@ -154,23 +240,6 @@ async function make_calls(states){
     return datas;
 }
 
-function get_data_subsets_numbers(datas, x, y){
-    let states = Object.keys(datas);
-    // key state: value list of point objects
-    let subsets = {}
-    states.forEach(state => {
-        let points = []
-        datas[state].forEach( day => {
-            let newPoint = {}
-            newPoint.x=day.date
-            newPoint.y=day.deathIncrease
-            points.push(newPoint)
-        })
-        subsets[state]= points
-    })
-    return subsets
-}
-
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
@@ -185,29 +254,36 @@ function randColor(){
     return '#' + randColor
 }
 
-function make_datasets_numbers(datas){
-    datasets=[];
-    states= Object.keys(datas);
-    states.forEach(state => {
-        //filter anything out that isn't number
-        let points = datas[state].filter(point => typeof point.y === 'number');
+async function make_graphs_numbers(states){
+    datas = await make_calls(states) 
+    console.log(datas)
 
-        let randomColor = randColor()
+    //parse data from call.  pull out dates, and check numbers return list of 
+    let dataSubsets = get_data_subsets_numbers(datas, 'date', 'deathIncrease')
+    console.log(dataSubsets)
 
-        let dataSet = {
-            label: state,
-            data: points,
-            borderColor: randomColor, // Add custom color border            
-            backgroundColor: randomColor, // Add custom color background (Points and Fill)
-        }
-        datasets.push(dataSet)
-    })
-    return datasets
+    //make list of data set objects
+    let datasets = make_datasets(dataSubsets)
+
+    //make graph
+    var ctx = document.getElementById('myChart');
+
+    var options = {responsive: true, // Instruct chart js to respond nicely.
+    maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+    };
+
+    // End Defining data
+    var myChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        datasets: datasets
+    },
+    options: options
+    });
 }
-
 
 console.log('hello world!')
 
 //let points = get_state_dailies('CA')
-make_graphs_numbers(['CA', 'WA'])
+make_date_graphs(['CA', 'WA'])
 
