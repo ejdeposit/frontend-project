@@ -97,6 +97,7 @@ async function make_call(st){
 //  ------------------------------------------------
 
 
+
 async function make_date_graphs(states){
     datas = await make_calls(states) 
     //console.log(datas)
@@ -241,6 +242,24 @@ async function make_calls(states){
 }
 
 
+function get_data_subsets_numbers(datas, x, y){
+    let states = Object.keys(datas);
+    // key state: value list of point objects
+    let subsets = {}
+    states.forEach(state => {
+        let points = []
+        datas[state].forEach( day => {
+            let newPoint = {}
+            newPoint.x=day.date
+            newPoint.y=day.deathIncrease
+            points.push(newPoint)
+        })
+        subsets[state]= points
+    })
+    return subsets
+}
+
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
@@ -256,9 +275,34 @@ function randColor(){
 }
 
 
+function make_datasets_numbers(datas){
+    datasets=[];
+    states= Object.keys(datas);
+    states.forEach(state => {
+        //filter anything out that isn't number
+        let points = datas[state].filter(point => typeof point.y === 'number');
+
+        let randomColor = randColor()
+
+        let dataSet = {
+            label: state,
+            data: points,
+            borderColor: randomColor, // Add custom color border            
+            backgroundColor: randomColor, // Add custom color background (Points and Fill)
+        }
+        datasets.push(dataSet)
+    })
+    return datasets
+}
+
+
 
 console.log('hello world!')
 
 //let points = get_state_dailies('CA')
+
 make_date_graphs(['CA', 'WA'])
+
+//make_graphs_numbers(['CA', 'WA'])
+
 
