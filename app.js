@@ -97,7 +97,7 @@ async function make_call(st){
 //  ------------------------------------------------
 
 
-async function make_graphs(states){
+async function make_graphs_numbers(states){
     datas = await make_calls(states) 
     console.log(datas)
 
@@ -154,7 +154,7 @@ async function make_calls(states){
     return datas;
 }
 
-function get_data_subsets(datas, x, y){
+function get_data_subsets_numbers(datas, x, y){
     let states = Object.keys(datas);
     // key state: value list of point objects
     let subsets = {}
@@ -185,7 +185,7 @@ function randColor(){
     return '#' + randColor
 }
 
-function make_datasets(datas){
+function make_datasets_numbers(datas){
     datasets=[];
     states= Object.keys(datas);
     states.forEach(state => {
@@ -209,5 +209,5 @@ function make_datasets(datas){
 console.log('hello world!')
 
 //let points = get_state_dailies('CA')
-make_graphs(['CA', 'WA'])
+make_graphs_numbers(['CA', 'WA'])
 
