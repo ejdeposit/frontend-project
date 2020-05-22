@@ -94,6 +94,7 @@ async function make_call(st){
 //  ------------------------------------------------
 //                  make multi line graph 
 //                  fom series of async calls 
+//                  graph by date
 //  ------------------------------------------------
 
 // functions for graphing by date
@@ -254,6 +255,12 @@ function randColor(){
     return '#' + randColor
 }
 
+
+//  ------------------------------------------------
+//                  make multi line graph 
+//                  without dates                   
+//  ------------------------------------------------
+
 async function make_graphs_numbers(states){
     datas = await make_calls(states) 
     console.log(datas)
@@ -285,5 +292,47 @@ async function make_graphs_numbers(states){
 console.log('hello world!')
 
 //let points = get_state_dailies('CA')
-make_date_graphs(['CA', 'WA'])
+//make_date_graphs(['CA', 'WA'])
 
+let inputDiv = document.querySelector('div#state-input')
+
+childNodes = inputDiv.childNodes
+/*
+console.log(typeof childNodes)
+console.log(Object.keys(childNodes))
+console.log(Object.values(childNodes))
+childNodes.forEach(child=>{
+    console.log(typeof child)
+    console.log(child)
+})
+*/
+
+// get all checkboxes and add event listener
+let checkboxes = Object.values(document.getElementsByClassName('state'))
+//let checkboxes = Object.values(childNodes).filter(obj => obj.className === 'state')
+
+// add event listener to each checkbox
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', event =>{
+        console.log('do something when check boxes change')
+        //get list of states that are currently checked
+        //make graph for each state
+    })
+})
+
+// filter out non-checked checkboxes
+checkboxes = checkboxes.filter(checkbox => checkbox.checked)
+
+// get value of each checkbox
+checkboxes.forEach(checkbox =>{
+    //console.log(checkbox)
+    //console.log(checkbox.checked)
+    console.log(checkbox.defaultValue)
+})
+//console.log(checkboxes)
+
+//filter out not checked check boxes
+/*
+console.log(checkboxes)
+checkbo
+*/
