@@ -1,7 +1,9 @@
 to do:
-- add event listeners to checkboxes
-- add check to data structure to see if data already been called
-- get value from check box and use to make api call
-- parse api data and return from function that makes call
-- better date format?
-- add data to graph
+x add event listeners to checkboxes
+x add check to data structure to see if data already been called
+x get value from check box and use to make api call
+x parse api data and return from function that makes call
+x better date format?
+x add data to graph
+- fix wrong dates
+- refactor code so make graph just takes dataset, pull make subset and get data out of it

@@ -90,6 +90,36 @@ async function make_call(st){
         })
     })
 }
+//  ------------------------------------------------
+//                  make multi line graph 
+//                  without dates                   
+//  ------------------------------------------------
+
+async function make_graphs_numbers(states){
+    datas = await make_calls(states) 
+
+    //parse data from call.  pull out dates, and check numbers return list of 
+    let dataSubsets = get_data_subsets_numbers(datas, 'date', 'deathIncrease')
+
+    //make list of data set objects
+    let datasets = make_datasets(dataSubsets)
+
+    //make graph
+    var ctx = document.getElementById('myChart');
+
+    var options = {responsive: true, // Instruct chart js to respond nicely.
+    maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+    };
+
+    // End Defining data
+    var myChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        datasets: datasets
+    },
+    options: options
+    });
+}
 
 //  ------------------------------------------------
 //                  make multi line graph 
@@ -99,20 +129,91 @@ async function make_call(st){
 
 // functions for graphing by date
 
-async function make_date_graphs(states){
-    datas = await make_calls(states) 
-    //console.log(datas)
+async function state_daily_graph(pastCalls, statesInput, outPutId){
+    /*
+    input: pass API calls, divID, list of states
+    */
+    
+    //figure out which calls where already made
+    let statesNeeded = statesInput.filter(state => !Object.keys(pastCalls).includes(state))
+
+    // always says all states needed.  not filtering
+    console.log('statesNeeded')
+    console.log(statesNeeded)
+
+    //make calls to rest
+    datas = await make_calls(statesNeeded) 
+    console.log('states requested')
+    console.log(Object.keys(datas))
+
+    //add new calls to saved api calls
+    statesNeeded.forEach(state => {
+        //maybe add some error checkign
+        if(Object.keys(datas).includes(state)){
+            pastCalls[state] = datas[state]
+        }
+    })
+
+    statesInput.forEach(state => {
+        //add stuff from past calls to data from new api call
+        if(!Object.keys(datas).includes(state)){
+            datas[state]= pastCalls[state]
+        }
+    })
 
     //parse data from call.  pull out dates, and check numbers return list of 
     let dataSubsets = get_data_subsets2(datas, ['date', 'deathIncrease'])
-    console.log('datasubsets from get_data_subsets')
-    console.log(dataSubsets)
-
     
     //make list of data set objects
     let datasets = make_datasets(dataSubsets, 'date', 'deathIncrease')
-    //console.log('datasets from make_datasets')
-    //console.log(datasets)
+
+    date_graph(datasets)
+}
+
+function date_graph(datasets){
+    /*
+    input
+    */
+    console.log('foo')
+
+    //make graph
+    var ctx = document.getElementById('myChart');
+        
+    var options = {
+        responsive: true, // Instruct chart js to respond nicely.
+        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+        scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    unit: 'day'
+                }
+            }]
+        }
+    };
+
+    // End Defining data
+    var myChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        datasets: datasets
+    },
+    options: options
+    });
+}
+
+async function make_date_graphs(states){
+    /*
+    change so just takes data set as argument
+    */
+
+    datas = await make_calls(states) 
+
+    //parse data from call.  pull out dates, and check numbers return list of 
+    let dataSubsets = get_data_subsets2(datas, ['date', 'deathIncrease'])
+    
+    //make list of data set objects
+    let datasets = make_datasets(dataSubsets, 'date', 'deathIncrease')
 
     //make graph
     var ctx = document.getElementById('myChart');
@@ -258,38 +359,7 @@ function randColor(){
 }
 
 
-//  ------------------------------------------------
-//                  make multi line graph 
-//                  without dates                   
-//  ------------------------------------------------
 
-async function make_graphs_numbers(states){
-    datas = await make_calls(states) 
-    console.log(datas)
-
-    //parse data from call.  pull out dates, and check numbers return list of 
-    let dataSubsets = get_data_subsets_numbers(datas, 'date', 'deathIncrease')
-    console.log(dataSubsets)
-
-    //make list of data set objects
-    let datasets = make_datasets(dataSubsets)
-
-    //make graph
-    var ctx = document.getElementById('myChart');
-
-    var options = {responsive: true, // Instruct chart js to respond nicely.
-    maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
-    };
-
-    // End Defining data
-    var myChart = new Chart(ctx, {
-    type: 'scatter',
-    data: {
-        datasets: datasets
-    },
-    options: options
-    });
-}
 
 //  ------------------------------------------------
 //             get check box input from user            
@@ -314,24 +384,27 @@ function get_checked_states(){
     return checkedStates
 }
 
+//  ------------------------------------------------
+//             main            
+//  ------------------------------------------------
+
 console.log('hello world!')
+
+statesDaily = {}
 
 // get all checkboxes and add event listener
 let checkboxes = Object.values(document.getElementsByClassName('state'))
 
 // add event listener to each checkbox
 checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', event =>{
+    checkbox.addEventListener('click', event =>{
         //get list of states that are currently checked
         let checkedStates = get_checked_states()
         //console.log(checkedStates)
 
         //make graph for each state
-        make_date_graphs(checkedStates)
+        //make_date_graphs(checkedStates)
+        state_daily_graph(statesDaily, checkedStates, 'myChart')
 
     })
 })
-
-
-
-
