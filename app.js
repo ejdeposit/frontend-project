@@ -127,11 +127,12 @@ async function make_graphs_numbers(states){
 //                  graph by date
 //  ------------------------------------------------
 
-// functions for graphing by date
-
+// TODO
+// add y variable from api call as variable
 async function state_daily_graph(pastCalls, statesInput, outPutId){
     /*
     input: pass API calls, divID, list of states
+
     */
     
     //figure out which calls where already made
@@ -162,7 +163,7 @@ async function state_daily_graph(pastCalls, statesInput, outPutId){
     })
 
     //parse data from call.  pull out dates, and check numbers return list of 
-    let dataSubsets = get_data_subsets2(datas, ['date', 'deathIncrease'])
+    let dataSubsets = get_data_subsets(datas, ['date', 'deathIncrease'])
     
     //make list of data set objects
     let datasets = make_datasets(dataSubsets, 'date', 'deathIncrease')
@@ -202,45 +203,6 @@ function date_graph(datasets){
     });
 }
 
-async function make_date_graphs(states){
-    /*
-    change so just takes data set as argument
-    */
-
-    datas = await make_calls(states) 
-
-    //parse data from call.  pull out dates, and check numbers return list of 
-    let dataSubsets = get_data_subsets2(datas, ['date', 'deathIncrease'])
-    
-    //make list of data set objects
-    let datasets = make_datasets(dataSubsets, 'date', 'deathIncrease')
-
-    //make graph
-    var ctx = document.getElementById('myChart');
-    
-    var options = {
-        responsive: true, // Instruct chart js to respond nicely.
-        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
-        scales: {
-            xAxes: [{
-              type: 'time',
-              time: {
-                unit: 'day'
-            }
-            }]
-          }
-    };
-
-    // End Defining data
-    var myChart = new Chart(ctx, {
-    type: 'scatter',
-    data: {
-        datasets: datasets
-    },
-    options: options
-    });
-    
-}
 
 function make_datasets(datas, x, y){
     /*
@@ -289,7 +251,7 @@ function data_to_date_points(){
     })
 }
 
-function get_data_subsets2(datas, members){
+function get_data_subsets(datas, members){
     /*
     takes in object with state:data pairs
     outputs subset of data
