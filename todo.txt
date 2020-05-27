@@ -7,3 +7,12 @@ x better date format?
 x add data to graph
 - fix wrong dates
 - refactor code so make graph just takes dataset, pull make subset and get data out of it
+- add checkbox to select all states
+- add option to divide by population of states
+- scale doesn't clear in between adding states and takin away
+
+other graphs
+new deaths/cases
+new cases per infection- if below one then virus would die out
+growth rate- bar graph
+doubling rate- 

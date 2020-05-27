@@ -129,7 +129,7 @@ async function make_graphs_numbers(states){
 
 // TODO
 // add y variable from api call as variable
-async function state_daily_graph(pastCalls, statesInput, outPutId){
+async function state_daily_graph(pastCalls, statesInput, outPutId, yVariable){
     /*
     input: pass API calls, divID, list of states
 
@@ -138,14 +138,8 @@ async function state_daily_graph(pastCalls, statesInput, outPutId){
     //figure out which calls where already made
     let statesNeeded = statesInput.filter(state => !Object.keys(pastCalls).includes(state))
 
-    // always says all states needed.  not filtering
-    console.log('statesNeeded')
-    console.log(statesNeeded)
-
     //make calls to rest
     datas = await make_calls(statesNeeded) 
-    console.log('states requested')
-    console.log(Object.keys(datas))
 
     //add new calls to saved api calls
     statesNeeded.forEach(state => {
@@ -163,10 +157,10 @@ async function state_daily_graph(pastCalls, statesInput, outPutId){
     })
 
     //parse data from call.  pull out dates, and check numbers return list of 
-    let dataSubsets = get_data_subsets(datas, ['date', 'deathIncrease'])
+    let dataSubsets = get_data_subsets(datas, ['date', yVariable])
     
     //make list of data set objects
-    let datasets = make_datasets(dataSubsets, 'date', 'deathIncrease')
+    let datasets = make_datasets(dataSubsets, 'date', yVariable)
 
     date_graph(datasets)
 }
@@ -271,7 +265,7 @@ function get_data_subsets(datas, members){
         })
         subset[state]= points
     })
-
+    console.log(subset)
     return subset
 }
 
@@ -362,11 +356,12 @@ checkboxes.forEach(checkbox => {
     checkbox.addEventListener('click', event =>{
         //get list of states that are currently checked
         let checkedStates = get_checked_states()
-        //console.log(checkedStates)
+        let metric = document.querySelector('input[name = "metric"]:checked').value
+        console.log(metric)
 
         //make graph for each state
         //make_date_graphs(checkedStates)
-        state_daily_graph(statesDaily, checkedStates, 'myChart')
+        state_daily_graph(statesDaily, checkedStates, 'myChart', metric)
 
     })
 })
