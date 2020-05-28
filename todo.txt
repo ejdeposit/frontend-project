@@ -10,9 +10,28 @@ x add data to graph
 - add checkbox to select all states
 - add option to divide by population of states
 - scale doesn't clear in between adding states and takin away
+- need to add css to make presentable
+-ensure responsive.  (mistake to leave this too the end)
 
 other graphs
 new deaths/cases
 new cases per infection- if below one then virus would die out
 growth rate- bar graph
 doubling rate- 
+
+
+notes:
+
+started by working on logic of calls and making displays
+
+1. made api call.  Figured out how to make multiple api calls.  Works but probably not necessary since the graph is made each time a box is checked and not possible to check more than one box at a time.  struggled with await and async for no reason.  ended up refactoring code a number of times to get organization that worked with async.  
+
+2. graphed data with dates.  tinkering required to get it to actually graph by date.  not sure what i did to fix the problem in the end.  Still no parsing dates correctly for some reason
+
+3. added event lisnters to check boxes for states.  no real difficulties here
+
+4. avoid duplicate api calls by saving a past calls in object.  required refactoring cods and working through bugs.
+
+5.  added option to graph different parts of data from api.  just required tinkering with existing code and adding some paramters to existing functions calls. functions calls
+
+6. fixed scale issues when making repeated calls.  used chart destroy() which found lot of hacky solutions online because apparently I'm not the only one who couldn't get it to work.  had to catch the chart opbject in global var, but it was promise so couldn't call desotry on it.  solution was to call then on promise to destroy it in function within then

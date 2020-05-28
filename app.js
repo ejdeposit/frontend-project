@@ -59,7 +59,7 @@ function get_state_dailies(st){
 
         // filter out anything that isn't plottable number 
         points = points.filter(point => typeof point.y === 'number')
-        console.log(points);
+        //console.log(points);
         make_graph('myChart', points);
     })
 }
@@ -85,7 +85,7 @@ async function make_call(st){
             });
             // filter out anything that isn't plottable number 
             points = points.filter(point => typeof point.y === 'number')
-            console.log(points);
+            //console.log(points);
             return points;
         })
     })
@@ -162,16 +162,15 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, yVariable){
     //make list of data set objects
     let datasets = make_datasets(dataSubsets, 'date', yVariable)
 
-    date_graph(datasets)
+    return date_graph(datasets)
 }
 
 function date_graph(datasets){
     /*
     input
     */
-    console.log('foo')
 
-    //make graph
+    // ctx is vanvase
     var ctx = document.getElementById('myChart');
         
     var options = {
@@ -195,6 +194,8 @@ function date_graph(datasets){
     },
     options: options
     });
+    //console.log(myChart)
+    return myChart
 }
 
 
@@ -219,7 +220,7 @@ function make_datasets(datas, x, y){
                 }
                 return point
             })
-            console.log(points)
+            //console.log(points)
 
             let dataSet = {
                 label: state,
@@ -265,7 +266,7 @@ function get_data_subsets(datas, members){
         })
         subset[state]= points
     })
-    console.log(subset)
+    //console.log(subset)
     return subset
 }
 
@@ -324,7 +325,7 @@ function randColor(){
 function get_checked_states(){
     // returns list of states from checked checkboxes
     checkedStates = []
-    console.log('get checked states')
+    //console.log('get checked states')
 
     let checkboxes = Object.values(document.getElementsByClassName('state'))
     
@@ -344,9 +345,11 @@ function get_checked_states(){
 //             main            
 //  ------------------------------------------------
 
-console.log('hello world!')
+//console.log('hello world!')
 
 statesDaily = {}
+myChart = {};
+myChart['chart'] = null;
 
 // get all checkboxes and add event listener
 let checkboxes = Object.values(document.getElementsByClassName('state'))
@@ -357,11 +360,18 @@ checkboxes.forEach(checkbox => {
         //get list of states that are currently checked
         let checkedStates = get_checked_states()
         let metric = document.querySelector('input[name = "metric"]:checked').value
-        console.log(metric)
+        //console.log(metric)
 
         //make graph for each state
         //make_date_graphs(checkedStates)
-        state_daily_graph(statesDaily, checkedStates, 'myChart', metric)
-
+        if(myChart['chart'] !== null){
+            console.log(myChart.chart)
+            console.log('destroy!')
+            //myChart['chart'].destroy()
+            myChart.chart.then(result=>result.destroy())
+            console.log(myChart.chart)
+        }
+        myChart['chart'] = state_daily_graph(statesDaily, checkedStates, 'myChart', metric)
+        console.log('back from making chart')
     })
 })
