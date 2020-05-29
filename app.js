@@ -354,6 +354,7 @@ myChart['chart'] = null;
 // get all checkboxes and add event listener
 let checkboxes = Object.values(document.getElementsByClassName('state'))
 
+
 // add event listener to each checkbox
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('click', event =>{
@@ -362,8 +363,7 @@ checkboxes.forEach(checkbox => {
         let metric = document.querySelector('input[name = "metric"]:checked').value
         //console.log(metric)
 
-        //make graph for each state
-        //make_date_graphs(checkedStates)
+        // destroy old chart if it exists
         if(myChart['chart'] !== null){
             console.log(myChart.chart)
             console.log('destroy!')
@@ -375,3 +375,8 @@ checkboxes.forEach(checkbox => {
         console.log('back from making chart')
     })
 })
+
+        //let checkedStates = get_checked_states()
+        //let metric = document.querySelector('input[name = "metric"]:checked').value
+        myChart['chart'] = state_daily_graph(statesDaily, ['WA'], 'myChart', 'deathIncrease')
+

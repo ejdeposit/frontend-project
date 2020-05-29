@@ -15,11 +15,11 @@
   <body>
     <div id="variable-input">
       <h3>graph type</h3>
+
       <p>Select a way to monitor the outbreak</p>
 
       <div>
-        <input type="radio" id="deathIncrease" name="metric" value="deathIncrease"
-               checked>
+        <input type="radio" id="deathIncrease" name="metric" value="deathIncrease" checked>
         <label for="deathIncrease">New Deaths</label>
       </div>
 
@@ -27,23 +27,58 @@
         <input type="radio" id="positiveIncrease" name="metric" value="positiveIncrease">
         <label for="positiveIncrease">New Cases</label>
       </div>
-
-<div>
-
     </div>
-    <div id="state-input">
+
+    <div class="input-container">
       <h3>States</h3>
+      <div id="state-input">
+        <div class="state-flex-item">
+          <input type="checkbox" class="state" id="washington" name="washington" value="WA" checked>
+          <label for="washington">Washington</label>
+        </div>
 
-      <input type="checkbox" class="state" id="washington" name="washington" value="WA">
-      <label for="washington">Washington</label>
+        <div class="state-flex-item">
+          <input type="checkbox" class="state" id="oregon" name="oregon" value="OR">
+          <label for="oregon">Oregon</label>
+        </div>
 
-      <input type="checkbox" class="state" id="oregon" name="oregon" value="OR">
-      <label for="oregon">Oregon</label>
+        <div class="state-flex-item">
+          <input type="checkbox" class="state" id="california" name="california" value="CA">
+          <label for="california">California</label>
+        </div>
 
-      <input type="checkbox" class="state" id="california" name="california" value="CA">
-      <label for="california">California</label>
+        <div class="state-flex-item">
+          <input type="checkbox" class="state" id="statename" name="statename" value="ST">
+          <label for="statename">statename</label>
+        </div>
+
+        <div class="state-flex-item">
+          <input type="checkbox" class="state" id="statename" name="statename" value="ST">
+          <label for="statename">statename</label>
+        </div>
+
+        <div class="state-flex-item">
+          <input type="checkbox" class="state" id="statename" name="statename" value="ST">
+          <label for="statename">statename</label>
+        </div>
+
+        <div class="state-flex-item">
+          <input type="checkbox" class="state" id="statename" name="statename" value="ST">
+          <label for="statename">statename</label>
+        </div>
+
+        <div class="state-flex-item">
+          <input type="checkbox" class="state" id="statename" name="statename" value="ST">
+          <label for="statename">statename</label>
+        </div>
+
+        <div class="state-flex-item">
+          <input type="checkbox" class="state" id="statename" name="statename" value="ST">
+          <label for="statename">statename</label>
+        </div>
+      </div>
     </div>
-    
+
     <div id="output">graph
       <h3>Graph</h3>
       <canvas id="myChart" aria-label="donut chart" role="img"></canvas>

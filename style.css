@@ -1,3 +1,42 @@
 body{
     background-color: white;
 }
+#state-input{
+
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+#state-flex-item{
+    background-color:white ;
+    width: 200px;
+    height: 100px;
+    margin: 1px;
+    padding: 10px;
+    text-align: center;
+}
+.input-container{
+    border-radius: 10px;
+    background-color: rgb(170,170,170);
+    align-content: center;
+    text-align: center;
+}
+
+.flex-item {
+    width: 200px;
+    height: 100px;
+    margin: 1px;
+    padding: 10px;
+    background-color: purple;
+    color: white;
+    text-align: center;
+  }
+  
+  .flex-container {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: end;
+  }
