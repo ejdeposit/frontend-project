@@ -6,16 +6,18 @@ x parse api data and return from function that makes call
 x better date format?
 x add data to graph
 - fix wrong dates
-- refactor code so make graph just takes dataset, pull make subset and get data out of it
+x refactor code so make graph just takes dataset, pull make subset and get data out of it
 - add checkbox to select all states
 - add option to divide by population of states
-- scale doesn't clear in between adding states and takin away
-- need to add css to make presentable
--ensure responsive.  (mistake to leave this too the end)
+x scale doesn't clear in between adding states and takin away
+x need to add css to make presentable
+x ensure responsive.  (mistake to leave this too the end)
 x add way to destory graph while window is being resized
-- add listener for graph type
+x add listener for graph type
 - save color for each state
--adjust scale when for mobile
+- add media query for mobile
+- adjust scale when for mobile
+-make graph full screen on mobile
 - make graph height bigger.  might be auto right now
 
 other graphs
@@ -48,3 +50,6 @@ started by working on logic of calls and making displays
 7. made states a flex items so they can be in rows.  made graph as soon as page loads to give better visual clue about what to do for user.  
 
 8. used flex box to make things look nicer.  adjust check boxes.  trying to use to center everything, but it breaks everything for some reason.  try set width of input cotainers to 100 percent and container container to 80%.  problem was width instead of max width but still decided to cetner everything horizontally in one big container
+
+
+9. added fonts added event listener for graph type radio
