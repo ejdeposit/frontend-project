@@ -68,7 +68,7 @@ height: 100px;
     }
   }
 
-@media (max-width: 320px){
+@media (max-width: 350px){
     #output{
         height: 250px
     }
