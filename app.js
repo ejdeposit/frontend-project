@@ -100,7 +100,7 @@ async function make_graphs_numbers(states){
 
     //parse data from call.  pull out dates, and check numbers return list of 
     let dataSubsets = get_data_subsets_numbers(datas, 'date', 'deathIncrease')
-
+    console.log(dataSubsets)
     //make list of data set objects
     let datasets = make_datasets(dataSubsets)
 
@@ -158,8 +158,9 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, yVariable){
 
     //parse data from call.  pull out dates, and check numbers return list of 
     let dataSubsets = get_data_subsets(datas, ['date', yVariable])
-    
-    //make list of data set objects
+    console.log(dataSubsets)
+     
+    //make list of data set objects 
     let datasets = make_datasets(dataSubsets, 'date', yVariable)
 
     return date_graph(datasets)
@@ -194,7 +195,6 @@ function date_graph(datasets){
     },
     options: options
     });
-    //console.log(myChart)
     return myChart
 }
 
@@ -211,13 +211,17 @@ function make_datasets(datas, x, y){
 
             points = datas[state].map(date =>{
                 let dateStr= date[x].toString()
+                console.log(dateStr)
                 let year = dateStr.slice(0,4) 
                 let month = dateStr.slice(4,6)
                 let day = dateStr.slice(6,8)
                 let point={
-                    x: new Date(year, month, day),
+                    x: new Date(year, month-1, day),
                     y: date[y]
                 }
+                console.log(typeof point.x)
+                console.log(point.x)
+                console.log(`${point.x.getFullYear}-${point.x.getMonth}-${point.x.getDate}`)
                 return point
             })
             //console.log(points)
