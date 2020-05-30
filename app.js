@@ -353,26 +353,41 @@ myChart['chart'] = null;
 
 // get all checkboxes and add event listener
 let checkboxes = Object.values(document.getElementsByClassName('state'))
+let radios = Object.values(document.getElementsByClassName('graph-type'))
 
+radios.forEach(radio => {
+    radio.addEventListener('click', event => {
+        console.log(`${radio.value} click`)
+        //get list of states that are currently checked
+        let checkedStates = get_checked_states()
+        //get graph-type that is selected
+        let metric = document.querySelector('input[name = "metric"]:checked').value
+        //console.log(metric)
+
+        // destroy old chart if it exists
+        if(myChart['chart'] !== null){
+            //myChart['chart'].destroy()
+            myChart.chart.then(result=>result.destroy())
+        }
+        myChart['chart'] = state_daily_graph(statesDaily, checkedStates, 'myChart', metric)
+    })
+});
 
 // add event listener to each checkbox
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('click', event =>{
         //get list of states that are currently checked
         let checkedStates = get_checked_states()
+        //get graph-type that is selected
         let metric = document.querySelector('input[name = "metric"]:checked').value
         //console.log(metric)
 
         // destroy old chart if it exists
         if(myChart['chart'] !== null){
-            console.log(myChart.chart)
-            console.log('destroy!')
             //myChart['chart'].destroy()
             myChart.chart.then(result=>result.destroy())
-            console.log(myChart.chart)
         }
         myChart['chart'] = state_daily_graph(statesDaily, checkedStates, 'myChart', metric)
-        console.log('back from making chart')
     })
 })
 
