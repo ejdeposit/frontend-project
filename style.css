@@ -1,13 +1,27 @@
+/*
+    background-color: rgb(31,173,223);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+*/
 body{
+    background-color: rgb(31,173,223);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+div{
     background-color: white;
 }
-#state-input{
-
+.options-flex-container{
+    background-color: white;
     height: 100px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    align-items: flex-start;
 }
+
 #state-flex-item{
     background-color:white ;
     width: 200px;
@@ -16,27 +30,14 @@ body{
     padding: 10px;
     text-align: center;
 }
-.input-container{
-    border-radius: 10px;
-    background-color: rgb(170,170,170);
-    align-content: center;
-    text-align: center;
-}
 
-.flex-item {
-    width: 200px;
-    height: 100px;
-    margin: 1px;
-    padding: 10px;
-    background-color: purple;
-    color: white;
-    text-align: center;
-  }
-  
-  .flex-container {
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: end;
-  }
+.input-container{
+    background-color: white;
+    align-content: center;
+    margin-bottom: 20px;
+}
+.container{
+    max-width: 85%;
+    border-radius: 7px;
+    
+}

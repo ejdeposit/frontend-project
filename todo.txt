@@ -12,14 +12,19 @@ x add data to graph
 - scale doesn't clear in between adding states and takin away
 - need to add css to make presentable
 -ensure responsive.  (mistake to leave this too the end)
-- add way to destory graph while window is being resized
+x add way to destory graph while window is being resized
 - add listener for graph type
+- save color for each state
 
 other graphs
 new deaths/cases
 new cases per infection- if below one then virus would die out
 growth rate- bar graph
 doubling rate- 
+three day avg
+
+
+Write a 3-4 page book report (double spaced) summarizing the book and including your opinion of the book
 
 
 notes:
@@ -39,3 +44,5 @@ started by working on logic of calls and making displays
 6. fixed scale issues when making repeated calls.  used chart destroy() which found lot of hacky solutions online because apparently I'm not the only one who couldn't get it to work.  had to catch the chart opbject in global var, but it was promise so couldn't call desotry on it.  solution was to call then on promise to destroy it in function within then
 
 7. made states a flex items so they can be in rows.  made graph as soon as page loads to give better visual clue about what to do for user.  
+
+8. used flex box to make things look nicer.  adjust check boxes.  trying to use to center everything, but it breaks everything for some reason.  try set width of input cotainers to 100 percent and container container to 80%.

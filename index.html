@@ -13,25 +13,24 @@
     <title>Covid Dashboard App</title>
   </head>
   <body>
-    <div id="variable-input">
-      <h3>graph type</h3>
-
-      <p>Select a way to monitor the outbreak</p>
+    
+    <div id="variable-input" class="input-container container">
+      <h3>1. Select a way to monitor the outbreak</h3>
 
       <div>
         <input type="radio" id="deathIncrease" name="metric" value="deathIncrease" checked>
         <label for="deathIncrease">New Deaths</label>
       </div>
 
-      <div>
+      <div class='container'>
         <input type="radio" id="positiveIncrease" name="metric" value="positiveIncrease">
         <label for="positiveIncrease">New Cases</label>
       </div>
     </div>
 
-    <div class="input-container">
-      <h3>States</h3>
-      <div id="state-input">
+    <div class="input-container container">
+      <h3>2. Select a state</h3>
+      <div id="state-input" class="container options-flex-container">
         <div class="state-flex-item">
           <input type="checkbox" class="state" id="washington" name="washington" value="WA" checked>
           <label for="washington">Washington</label>
@@ -79,8 +78,7 @@
       </div>
     </div>
 
-    <div id="output">graph
-      <h3>Graph</h3>
+    <div id="output" class="container">graph
       <canvas id="myChart" aria-label="donut chart" role="img"></canvas>
     </div>
 
