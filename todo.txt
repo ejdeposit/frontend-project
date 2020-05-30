@@ -15,6 +15,7 @@ x add data to graph
 x add way to destory graph while window is being resized
 - add listener for graph type
 - save color for each state
+-adjust scale when for mobile
 
 other graphs
 new deaths/cases
@@ -45,4 +46,4 @@ started by working on logic of calls and making displays
 
 7. made states a flex items so they can be in rows.  made graph as soon as page loads to give better visual clue about what to do for user.  
 
-8. used flex box to make things look nicer.  adjust check boxes.  trying to use to center everything, but it breaks everything for some reason.  try set width of input cotainers to 100 percent and container container to 80%.
+8. used flex box to make things look nicer.  adjust check boxes.  trying to use to center everything, but it breaks everything for some reason.  try set width of input cotainers to 100 percent and container container to 80%.ggt
