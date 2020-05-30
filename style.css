@@ -57,3 +57,23 @@ height: 100px;
 #output{
     height: 400px
 }
+
+@media (max-width: 468px){
+    div.form{
+      background-color:rgb(255,255,255) ;
+      border-radius: 10px;
+      padding: 20px;
+      display: inline-block;
+      width: 90%;
+    }
+  }
+
+@media (max-width: 320px){
+    #output{
+        height: 250px
+    }
+    .container-container{
+        background-color: rgb(175,225,238);
+        width: 98%;
+    }
+}
