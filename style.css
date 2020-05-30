@@ -14,17 +14,17 @@ div{
 }
 .options-flex-container{
     background-color: white;
-    height: 100px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
 }
-
+/*
+width: 200px;
+height: 100px;
+*/
 #state-flex-item{
     background-color:white ;
-    width: 200px;
-    height: 100px;
     margin: 1px;
     padding: 10px;
     text-align: center;

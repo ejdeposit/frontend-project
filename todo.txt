@@ -53,3 +53,5 @@ started by working on logic of calls and making displays
 
 
 9. added fonts added event listener for graph type radio
+
+10.  get states to look nice.  overflow out of div if min not set then they don't make multiple columns.
