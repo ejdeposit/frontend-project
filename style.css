@@ -23,12 +23,9 @@ div{
 width: 200px;
 height: 100px;
 */
-#state-flex-item{
-    background-color:white ;
-    margin: 1px;
-    padding: 10px;
-    text-align: center;
+.state-flex-item{
     border-radius: 5px;
+    width: 9em
 }
 
 .input-container{
