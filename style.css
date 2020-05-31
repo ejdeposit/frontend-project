@@ -54,6 +54,9 @@ height: 100px;
 #output{
     height: 400px
 }
+.graph-flex-item{
+    width: 10em;
+}
 
 @media (max-width: 468px){
     div.form{

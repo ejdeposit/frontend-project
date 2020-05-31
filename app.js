@@ -36,15 +36,10 @@ function get_state_dailies(st){
 
     fetch(`${requesturl}`)
     .then(response => {
-        //console.log('RESPONSE')
-        //console.log(response)
         //check response status code
         return response.json()
     })
     .then(data => {
-        //console.log('DATA')
-        //console.log(data)
-        
         //create array of point obnjects
         let points=[]
         let i = 1
@@ -59,7 +54,7 @@ function get_state_dailies(st){
 
         // filter out anything that isn't plottable number 
         points = points.filter(point => typeof point.y === 'number')
-        //console.log(points);
+
         make_graph('myChart', points);
     })
 }
@@ -85,7 +80,7 @@ async function make_call(st){
             });
             // filter out anything that isn't plottable number 
             points = points.filter(point => typeof point.y === 'number')
-            //console.log(points);
+
             return points;
         })
     })
@@ -100,7 +95,7 @@ async function make_graphs_numbers(states){
 
     //parse data from call.  pull out dates, and check numbers return list of 
     let dataSubsets = get_data_subsets_numbers(datas, 'date', 'deathIncrease')
-    console.log(dataSubsets)
+
     //make list of data set objects
     let datasets = make_datasets(dataSubsets)
 
@@ -149,8 +144,8 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, yVariable){
         }
     })
 
+    //combine saved data with new data
     statesInput.forEach(state => {
-        //add stuff from past calls to data from new api call
         if(!Object.keys(datas).includes(state)){
             datas[state]= pastCalls[state]
         }
@@ -158,10 +153,19 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, yVariable){
 
     //parse data from call.  pull out dates, and check numbers return list of 
     let dataSubsets = get_data_subsets(datas, ['date', yVariable])
-    console.log(dataSubsets)
+    //console.log(dataSubsets)
+
+    //transform datasubsets for 3 day avg.  should be able to maintain order
+    dataSubsets = seven_day_avg(dataSubsets)
+    //console.log(avgDataSubsets)
+
+    //filter out negative numbers if deats or 
      
     //make list of data set objects 
     let datasets = make_datasets(dataSubsets, 'date', yVariable)
+    //let datasets = make_datasets(avgDataSubsets, 'date', yVariable)
+
+    //add in labels for graphs
 
     return date_graph(datasets)
 }
@@ -211,7 +215,6 @@ function make_datasets(datas, x, y){
 
             points = datas[state].map(date =>{
                 let dateStr= date[x].toString()
-                console.log(dateStr)
                 let year = dateStr.slice(0,4) 
                 let month = dateStr.slice(4,6)
                 let day = dateStr.slice(6,8)
@@ -219,12 +222,9 @@ function make_datasets(datas, x, y){
                     x: new Date(year, month-1, day),
                     y: date[y]
                 }
-                console.log(typeof point.x)
-                console.log(point.x)
-                console.log(`${point.x.getFullYear}-${point.x.getMonth}-${point.x.getDate}`)
+
                 return point
             })
-            //console.log(points)
 
             let dataSet = {
                 label: state,
@@ -246,7 +246,6 @@ function data_to_date_points(){
         let month = xStr.slice(4,6)
         let day = xStr.slice(6,8)
         point.x =  new Date(year, month, day)
-        //console.log(point.x)
     })
 }
 
@@ -270,7 +269,7 @@ function get_data_subsets(datas, members){
         })
         subset[state]= points
     })
-    //console.log(subset)
+
     return subset
 }
 
@@ -319,7 +318,61 @@ function randColor(){
     return '#' + randColor
 }
 
+function seven_day_avg(datas){
+    if(Object.keys(datas).length === 0){
+        return {}
+    }
+    avgDatas = {}
+    duration = 7
+    duration = (duration -1)/2
 
+    //get one day of data to pull out y variable
+    states = Object.keys(datas) 
+    sampleData = datas[states[0]][0]
+    let keys = Object.keys(sampleData)
+    yVariable = keys.filter(x => x !== "date" )[0]
+
+    //states data consists of list of objects
+    states.forEach(state =>{
+        let avgData = [];
+        let data=datas[state];
+        data.forEach(day =>{
+            let index = data.indexOf(day);
+            let week = []
+            week.push(day[yVariable])
+            //avg correct up to here
+            
+            //get 3 below
+            let i = index-1;
+            let count = 0;
+            while(i >= 0 && count<duration){
+                let prevDay = data[i][yVariable]
+                week.push(prevDay)
+                i = i - 1;
+                count = count + 1
+            }
+
+            i = index+1;
+            count = 0;
+            console.log('next days')
+            while(i < data.length && count<duration){
+                week.push(data[i][yVariable])
+                i = i + 1;
+                count = count + 1
+            }
+
+            const reducer = (accumulator, currentValue) => accumulator + currentValue;
+            let avg = week.reduce(reducer)/ week.length
+            let avgPoint = {}
+            avgPoint['date'] = day['date']
+            avgPoint[yVariable] = avg
+
+            avgData.push(avgPoint)
+        })
+        avgDatas[state] = avgData
+    })
+    return avgDatas
+}
 
 
 //  ------------------------------------------------
@@ -329,7 +382,6 @@ function randColor(){
 function get_checked_states(){
     // returns list of states from checked checkboxes
     checkedStates = []
-    //console.log('get checked states')
 
     let checkboxes = Object.values(document.getElementsByClassName('state'))
     
@@ -339,7 +391,6 @@ function get_checked_states(){
     // get value of each checkbox
     
     checkboxes.forEach(checkbox =>{
-        //console.log(checkbox.defaultValue)
         checkedStates.push(checkbox.defaultValue)
     })
     return checkedStates
@@ -349,8 +400,6 @@ function get_checked_states(){
 //             main            
 //  ------------------------------------------------
 
-//console.log('hello world!')
-
 statesDaily = {}
 myChart = {};
 myChart['chart'] = null;
@@ -359,14 +408,13 @@ myChart['chart'] = null;
 let checkboxes = Object.values(document.getElementsByClassName('state'))
 let radios = Object.values(document.getElementsByClassName('graph-type'))
 
+//add event listeners for graph selection radio options
 radios.forEach(radio => {
     radio.addEventListener('click', event => {
-        console.log(`${radio.value} click`)
         //get list of states that are currently checked
         let checkedStates = get_checked_states()
         //get graph-type that is selected
         let metric = document.querySelector('input[name = "metric"]:checked').value
-        //console.log(metric)
 
         // destroy old chart if it exists
         if(myChart['chart'] !== null){
@@ -377,14 +425,13 @@ radios.forEach(radio => {
     })
 });
 
-// add event listener to each checkbox
+// add event listener to each state checkbox
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('click', event =>{
         //get list of states that are currently checked
         let checkedStates = get_checked_states()
         //get graph-type that is selected
         let metric = document.querySelector('input[name = "metric"]:checked').value
-        //console.log(metric)
 
         // destroy old chart if it exists
         if(myChart['chart'] !== null){
@@ -395,7 +442,8 @@ checkboxes.forEach(checkbox => {
     })
 })
 
-        //let checkedStates = get_checked_states()
-        //let metric = document.querySelector('input[name = "metric"]:checked').value
-        myChart['chart'] = state_daily_graph(statesDaily, ['WA'], 'myChart', 'deathIncrease')
+// make graph
+//let checkedStates = get_checked_states()
+//let metric = document.querySelector('input[name = "metric"]:checked').value
+myChart['chart'] = state_daily_graph(statesDaily, ['WA'], 'myChart', 'deathIncrease')
 

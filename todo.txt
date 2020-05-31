@@ -5,7 +5,7 @@ x get value from check box and use to make api call
 x parse api data and return from function that makes call
 x better date format?
 x add data to graph
-- fix wrong dates
+x fix wrong dates
 x refactor code so make graph just takes dataset, pull make subset and get data out of it
 - add checkbox to select all states
 - add option to divide by population of states
@@ -15,21 +15,18 @@ x ensure responsive.  (mistake to leave this too the end)
 x add way to destory graph while window is being resized
 x add listener for graph type
 - save color for each state
-- add media query for mobile
-- adjust scale when for mobile
--make graph full screen on mobile
+x add media query for mobile
+x make graph full screen on mobile
 - make graph height bigger.  might be auto right now
+- filter out negative numbers
 
-other graphs
-new deaths/cases
-new cases per infection- if below one then virus would die out
-growth rate- bar graph
-doubling rate- 
-three day avg
-
-
-Write a 3-4 page book report (double spaced) summarizing the book and including your opinion of the book
-
+graphs 
+x new daily deaths/cases
+- new cases per infection- if below one then virus would die out
+- growth rate- bar graph
+- doubling rate- 
+- three day avg deats/ cases https://www.statisticshowto.com/moving-average/
+- weekly growth rate 
 
 notes:
 
