@@ -127,14 +127,23 @@ async function make_graphs_numbers(states){
 async function state_daily_graph(pastCalls, statesInput, outPutId, yVariable){
     /*
     input: pass API calls, divID, list of states
-
     */
+    let sevenDayAvg = false;
+    if(yVariable === 'avgPositiveIncrease'){
+        yVariable = 'positiveIncrease';
+        sevenDayAvg = true;
+    }
+    if(yVariable === 'avgDeathIncrease'){
+        yVariable = 'deathIncrease';
+        sevenDayAvg = true;
+    } 
     
     //figure out which calls where already made
     let statesNeeded = statesInput.filter(state => !Object.keys(pastCalls).includes(state))
 
     //make calls to rest
     datas = await make_calls(statesNeeded) 
+    console.log(datas)
 
     //add new calls to saved api calls
     statesNeeded.forEach(state => {
@@ -155,15 +164,17 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, yVariable){
     let dataSubsets = get_data_subsets(datas, ['date', yVariable])
     //console.log(dataSubsets)
 
-    //transform datasubsets for 3 day avg.  should be able to maintain order
-    dataSubsets = seven_day_avg(dataSubsets)
+    //transform datasubsets for 7 day avg.  should be able to maintain order
+    if(sevenDayAvg){
+        dataSubsets = seven_day_avg(dataSubsets)
+        console.log('find seven day averages')
+    }
     //console.log(avgDataSubsets)
 
     //filter out negative numbers if deats or 
      
     //make list of data set objects 
     let datasets = make_datasets(dataSubsets, 'date', yVariable)
-    //let datasets = make_datasets(avgDataSubsets, 'date', yVariable)
 
     //add in labels for graphs
 
