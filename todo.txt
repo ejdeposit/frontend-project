@@ -23,9 +23,7 @@ x make graph full screen on mobile
 graphs 
 x new daily deaths/cases
 - new cases per infection- if below one then virus would die out
-- growth rate- bar graph
-- doubling rate- 
-- three day avg deats/ cases https://www.statisticshowto.com/moving-average/
+x three day avg deats/ cases https://www.statisticshowto.com/moving-average/
 - weekly growth rate 
 
 notes:

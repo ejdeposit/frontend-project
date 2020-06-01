@@ -128,15 +128,27 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, yVariable){
     /*
     input: pass API calls, divID, list of states
     */
+    console.log(`yVariable: ${yVariable}`)
+    let graphTitle = ''
     let sevenDayAvg = false;
-    if(yVariable === 'avgPositiveIncrease'){
+    if(yVariable === 'positiveIncrease'){
+        graphTitle = 'New Daily Cases'
+    }
+    else if(yVariable === 'deathIncrease'){
+        graphTitle = 'New Daily Deaths'
+
+    }
+    else if(yVariable === 'avgPositiveIncrease'){
         yVariable = 'positiveIncrease';
         sevenDayAvg = true;
+        graphTitle = "Seven Day Average in New Cases"
     }
-    if(yVariable === 'avgDeathIncrease'){
+    else if(yVariable === 'avgDeathIncrease'){
         yVariable = 'deathIncrease';
         sevenDayAvg = true;
+        graphTitle = "Seven Day Average in New Deaths"
     } 
+    
     
     //figure out which calls where already made
     let statesNeeded = statesInput.filter(state => !Object.keys(pastCalls).includes(state))
@@ -177,19 +189,29 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, yVariable){
     let datasets = make_datasets(dataSubsets, 'date', yVariable)
 
     //add in labels for graphs
+    let title=''
+    if(yVariable === 'positiveIncrease'){
 
-    return date_graph(datasets)
+    }
+
+    return date_graph(datasets, graphTitle)
 }
 
-function date_graph(datasets){
+function date_graph(datasets, graphTitle){
     /*
     input
     */
+    console.log(`*${graphTitle}*`)
 
     // ctx is vanvase
     var ctx = document.getElementById('myChart');
         
     var options = {
+        title: {
+            display: true,
+            text: graphTitle,
+            fontSize: 20
+        },
         responsive: true, // Instruct chart js to respond nicely.
         maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
         scales: {
