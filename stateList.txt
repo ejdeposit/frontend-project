@@ -6,7 +6,6 @@ California	Calif.	CA
 Colorado	Colo.	CO
 Connecticut	Conn.	CT
 Delaware	Del.	DE
-District of Columbia	D.C.	DC
 Florida	Fla.	FL
 Georgia	Ga.	GA
 Hawaii	Hawaii	HI

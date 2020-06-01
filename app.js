@@ -128,7 +128,6 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, yVariable){
     /*
     input: pass API calls, divID, list of states
     */
-    console.log(`yVariable: ${yVariable}`)
     let graphTitle = ''
     let sevenDayAvg = false;
     if(yVariable === 'positiveIncrease'){
@@ -155,7 +154,6 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, yVariable){
 
     //make calls to rest
     datas = await make_calls(statesNeeded) 
-    console.log(datas)
 
     //add new calls to saved api calls
     statesNeeded.forEach(state => {
@@ -174,14 +172,11 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, yVariable){
 
     //parse data from call.  pull out dates, and check numbers return list of 
     let dataSubsets = get_data_subsets(datas, ['date', yVariable])
-    //console.log(dataSubsets)
 
     //transform datasubsets for 7 day avg.  should be able to maintain order
     if(sevenDayAvg){
         dataSubsets = seven_day_avg(dataSubsets)
-        console.log('find seven day averages')
     }
-    //console.log(avgDataSubsets)
 
     //filter out negative numbers if deats or 
      
@@ -201,7 +196,6 @@ function date_graph(datasets, graphTitle){
     /*
     input
     */
-    console.log(`*${graphTitle}*`)
 
     // ctx is vanvase
     var ctx = document.getElementById('myChart');
@@ -387,7 +381,6 @@ function seven_day_avg(datas){
 
             i = index+1;
             count = 0;
-            console.log('next days')
             while(i < data.length && count<duration){
                 week.push(data[i][yVariable])
                 i = i + 1;
