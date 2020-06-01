@@ -124,25 +124,29 @@ async function make_graphs_numbers(states){
 
 // TODO
 // add y variable from api call as variable
-async function state_daily_graph(pastCalls, statesInput, outPutId, yVariable){
+async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelection){
     /*
     input: pass API calls, divID, list of states
     */
     let graphTitle = ''
     let sevenDayAvg = false;
-    if(yVariable === 'positiveIncrease'){
+    let twoWeekCum = false;
+    let yVariable=''
+    if(graphSelection === 'positiveIncrease'){
         graphTitle = 'New Daily Cases'
+        yVariable = graphSelection
     }
-    else if(yVariable === 'deathIncrease'){
+    else if(graphSelection === 'deathIncrease'){
         graphTitle = 'New Daily Deaths'
+        yVariable = graphSelection
 
     }
-    else if(yVariable === 'avgPositiveIncrease'){
+    else if(graphSelection === 'avgPositiveIncrease'){
         yVariable = 'positiveIncrease';
         sevenDayAvg = true;
         graphTitle = "Seven Day Average in New Cases"
     }
-    else if(yVariable === 'avgDeathIncrease'){
+    else if(graphSelection === 'avgDeathIncrease'){
         yVariable = 'deathIncrease';
         sevenDayAvg = true;
         graphTitle = "Seven Day Average in New Deaths"
@@ -177,6 +181,8 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, yVariable){
     if(sevenDayAvg){
         dataSubsets = seven_day_avg(dataSubsets)
     }
+    
+    two_week_cumulutive(dataSubsets)
 
     //filter out negative numbers if deats or 
      
@@ -249,7 +255,6 @@ function make_datasets(datas, x, y){
                     x: new Date(year, month-1, day),
                     y: date[y]
                 }
-
                 return point
             })
 
@@ -353,11 +358,7 @@ function seven_day_avg(datas){
     duration = 7
     duration = (duration -1)/2
 
-    //get one day of data to pull out y variable
-    states = Object.keys(datas) 
-    sampleData = datas[states[0]][0]
-    let keys = Object.keys(sampleData)
-    yVariable = keys.filter(x => x !== "date" )[0]
+    let yVariable = get_y_variable(datas)
 
     //states data consists of list of objects
     states.forEach(state =>{
@@ -398,6 +399,47 @@ function seven_day_avg(datas){
         avgDatas[state] = avgData
     })
     return avgDatas
+}
+
+function get_y_variable(datas){
+    let states = Object.keys(datas) 
+    let sampleData = datas[states[0]][0]
+    let keys = Object.keys(sampleData)
+    return keys.filter(x => x !== "date" )[0]
+
+}
+
+function two_week_cumulutive(datas){
+    let states = Object.keys(datas)
+    if(states === 0){
+        return {}
+    }
+
+    let yVariable = get_y_variable(datas)
+
+    states.forEach(state => {
+        //split list into list of 7 day lists
+        let weekCums =[]
+        let max = datas[state].length
+
+        for(let i=0; i+7 < max; i=i+7){
+            let week = []
+            week.push(datas[state][i])
+            week.push(datas[state][i+1])
+            week.push(datas[state][i+2])
+            week.push(datas[state][i+4])
+            week.push(datas[state][i+5])
+            week.push(datas[state][i+6])
+            week.push(datas[state][i+7])
+            weekCums.push(week)
+        }
+        console.log(weekCums)
+        //reduce each lists
+        
+        //concat all lists
+    });
+
+    return {}
 }
 
 

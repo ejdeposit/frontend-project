@@ -54,3 +54,5 @@ started by working on logic of calls and making displays
 890 lines
 
 11. added more graphing options 7 day avg.  debugging took some time.  added title
+
+12.  2 week cumulivies.  spicing each list multiple times which decreases the list length unless you attempt to splice more than is in the list then it takes the remaining and leaves the list length unchanged leading to an infinite loop.  
