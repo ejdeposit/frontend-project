@@ -19,6 +19,9 @@ div{
     flex-wrap: wrap;
     align-items: flex-start;
 }
+.graph-options{
+    justify-content: space-between;
+}
 /*
 width: 200px;
 height: 100px;
@@ -54,9 +57,11 @@ height: 100px;
 #output{
     height: 400px
 }
+/*
 .graph-flex-item{
     width: 12em;
 }
+*/
 
 @media (max-width: 468px){
     div.form{
