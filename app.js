@@ -410,6 +410,7 @@ function get_y_variable(datas){
 }
 
 function two_week_cumulutive(datas){
+    let reducedData={}
     let states = Object.keys(datas)
     if(states === 0){
         return {}
@@ -422,7 +423,7 @@ function two_week_cumulutive(datas){
         let weekCums =[]
         let max = datas[state].length
 
-        for(let i=0; i+7 < max; i=i+7){
+        for(let i=0; i+14 < max; i=i+14){
             let week = []
             week.push(datas[state][i])
             week.push(datas[state][i+1])
@@ -431,15 +432,37 @@ function two_week_cumulutive(datas){
             week.push(datas[state][i+5])
             week.push(datas[state][i+6])
             week.push(datas[state][i+7])
+            week.push(datas[state][i+8])
+            week.push(datas[state][i+9])
+            week.push(datas[state][i+10])
+            week.push(datas[state][i+11])
+            week.push(datas[state][i+12])
+            week.push(datas[state][i+13])
+            week.push(datas[state][i+14])
             weekCums.push(week)
         }
         console.log(weekCums)
-        //reduce each lists
         
-        //concat all lists
-    });
+        //reduce each lists
+        //use date from first item in list
+        reducedData[state] = [] 
 
-    return {}
+        weekCums.forEach(week => {
+            let dateStr= week[0]['date']
+            let accum = 0
+            week.forEach(day =>{
+                accum = accum + day[yVariable]
+            });
+            let newWeek = {};
+            newWeek[yVariable]= accum;
+            newWeek['date']=dateStr;
+            reducedData[state].push(newWeek)
+            console.log(newWeek)
+            console.log(week)
+        });
+    });
+    //divide data by pop or separate function
+    return reducedData
 }
 
 
