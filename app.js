@@ -214,20 +214,13 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelectio
         yVariable = 'positiveIncrease';
         twoWeekCum = true;
         graphTitle = "New cases Per 1000 Residents";
-
     }
-
-    
     
     //figure out which calls where already made
     let statesNeeded = statesInput.filter(state => !Object.keys(pastCalls).includes(state))
-    //console.log('states needed:')
-    //console.log(statesNeeded)
 
     //make calls to rest
     datas = await make_calls(statesNeeded) 
-    //console.log('data from api call')
-    //console.log(datas)
 
     //add new calls to saved api calls
     statesNeeded.forEach(state => {
