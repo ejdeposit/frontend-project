@@ -184,7 +184,8 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelectio
     let graphTitle = ''
     let sevenDayAvg = false;
     let twoWeekCum = false;
-    let yVariable=''
+    let yVariable='';
+    let growthRate = false;
     if(graphSelection === 'positiveIncrease'){
         graphTitle = 'New Daily Cases'
         yVariable = graphSelection
@@ -192,7 +193,6 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelectio
     else if(graphSelection === 'deathIncrease'){
         graphTitle = 'New Daily Deaths'
         yVariable = graphSelection
-
     }
     else if(graphSelection === 'avgPositiveIncrease'){
         yVariable = 'positiveIncrease';
@@ -208,12 +208,24 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelectio
         yVariable = 'deathIncrease';
         twoWeekCum = true;
         graphTitle = "New Deaths Per 1000 Residents";
-
     }
     else if(graphSelection ==='casesPerK'){
         yVariable = 'positiveIncrease';
         twoWeekCum = true;
         graphTitle = "New cases Per 1000 Residents";
+    }
+    else if(graphSelection === 'avgDailyGrowthRateCases'){
+        console.log(graphSelection)
+        growthRate= true;
+        sevenDayAvg = true;
+        yVariable = 'positiveIncrease'
+
+    }
+    else if(graphSelection === 'avgDailyGrowthRateDeaths'){
+        console.log(graphSelection)
+        growthRate= true;
+        sevenDayAvg = true;
+        yVariable = 'deathIncrease'
     }
     
     //figure out which calls where already made
@@ -248,9 +260,16 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelectio
     if(sevenDayAvg){
         dataSubsets = seven_day_avg(dataSubsets)
     }
+
+    if(growthRate){
+        dataSubsets = growth_rate(dataSubsets)
+        //dataSubsets= growth_rate(dataSubsets)
+        console.log('growth rates')
+        console.log(dataSubsets)
+    }
     
     if(twoWeekCum){
-        dataSubsets = two_week_cumulutive(dataSubsets)
+        dataSubsets = two_week_per_k(dataSubsets)
     } 
 
     //filter out negative numbers if deats or 
@@ -420,9 +439,6 @@ function randColor(){
 }
 
 function seven_day_avg(datas){
-    console.log('Seven_day_avg()')
-    console.log('datas')
-    console.log(datas)
     let states = Object.keys(datas)
 
     if(Object.keys(datas).length === 0){
@@ -484,10 +500,10 @@ function get_y_variable(datas){
 
 }
 
-function two_week_cumulutive(datas){
+function two_week_per_k(datas){
     let reducedData={}
     let states = Object.keys(datas)
-    if(states === 0){
+    if(states.length === 0){
         return {}
     }
 
@@ -516,7 +532,6 @@ function two_week_cumulutive(datas){
             week.push(datas[state][i+14])
             weekCums.push(week)
         }
-        console.log(weekCums)
         
         //reduce each lists
         //use date from first item in list
@@ -532,14 +547,51 @@ function two_week_cumulutive(datas){
             newWeek[yVariable]=1000 * accum/statePopulations[state];
             newWeek['date']=dateStr;
             reducedData[state].push(newWeek)
-            console.log(newWeek)
-            console.log(statePopulations[state])
-            console.log(week)
         });
     });
 
     //divide data by pop or separate function
     return reducedData
+}
+
+function growth_rate(datas){
+    // check if data is empty
+    let states = Object.keys(datas)
+    if(states.length === 0){
+        console.log('returning early')
+        console.log(states)
+        console.log(datas)
+        return {}
+    }else{
+        console.log('good to go')
+        console.log(states)
+        console.log(datas)
+    }
+    let newDatas = {}
+    let yVariable = get_y_variable(datas)
+    //accumulate in 1 week intervals liek previous function
+    states.forEach(state => {
+        let data = datas[state]
+        console.log(`data for ${state}`)
+        console.log(data)
+        let newData = []
+        for(let i=0; i<data.length-1; i++){
+            //most recent value is first
+            let cur = data[i][yVariable]
+            let prev = data[i+1][yVariable]
+            console.log(`cur: ${cur}, prev: ${prev}`)
+            let newDay ={}
+            newDay['date'] = data[i]['date']
+            newDay[yVariable] = (cur - prev) / prev
+            console.log(newDay)
+            newData.push(newDay)
+        }
+        console.log('newData')
+        console.log(newData)
+        newDatas[state] = newData
+    })
+    // everything is a list, which is pass by references, so why am i returning everything?
+    return newDatas
 }
 
 
