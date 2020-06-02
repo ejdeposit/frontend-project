@@ -19,6 +19,7 @@ x add media query for mobile
 x make graph full screen on mobile
 - make graph height bigger.  might be auto right now
 - filter out negative numbers
+- broken when nothing selected for 7 day average
 
 graphs 
 x new daily deaths/cases
@@ -56,3 +57,5 @@ started by working on logic of calls and making displays
 11. added more graphing options 7 day avg.  debugging took some time.  added title
 
 12.  2 week cumulivies.  spicing each list multiple times which decreases the list length unless you attempt to splice more than is in the list then it takes the remaining and leaves the list length unchanged leading to an infinite loop.  
+
+13.  refactored code and deleted a variable.  but code kept runnings as if the variable were still accessable leading to really confounding errors

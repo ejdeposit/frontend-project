@@ -155,9 +155,13 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelectio
     
     //figure out which calls where already made
     let statesNeeded = statesInput.filter(state => !Object.keys(pastCalls).includes(state))
+    //console.log('states needed:')
+    //console.log(statesNeeded)
 
     //make calls to rest
     datas = await make_calls(statesNeeded) 
+    //console.log('data from api call')
+    //console.log(datas)
 
     //add new calls to saved api calls
     statesNeeded.forEach(state => {
@@ -173,16 +177,20 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelectio
             datas[state]= pastCalls[state]
         }
     })
+    console.log('combined data')
+    console.log(datas)
 
     //parse data from call.  pull out dates, and check numbers return list of 
     let dataSubsets = get_data_subsets(datas, ['date', yVariable])
+    console.log('data subsets')
+    console.log(dataSubsets)
 
     //transform datasubsets for 7 day avg.  should be able to maintain order
     if(sevenDayAvg){
         dataSubsets = seven_day_avg(dataSubsets)
     }
     
-    two_week_cumulutive(dataSubsets)
+    //two_week_cumulutive(dataSubsets)
 
     //filter out negative numbers if deats or 
      
@@ -350,10 +358,21 @@ function randColor(){
     return '#' + randColor
 }
 
+
+// something borken here changed if condition for return empty object
 function seven_day_avg(datas){
+    console.log('Seven_day_avg()')
+    console.log('datas')
+    console.log(datas)
+    let states = Object.keys(datas)
+
     if(Object.keys(datas).length === 0){
+        console.log('no states in data subsets')
+        console.log(datas)
+        console.log(object.keys(datas))
         return {}
     }
+
     avgDatas = {}
     duration = 7
     duration = (duration -1)/2
@@ -361,6 +380,8 @@ function seven_day_avg(datas){
     let yVariable = get_y_variable(datas)
 
     //states data consists of list of objects
+    console.log('data keys')
+    console.log(states)
     states.forEach(state =>{
         let avgData = [];
         let data=datas[state];
