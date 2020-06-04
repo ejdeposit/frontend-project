@@ -1,5 +1,5 @@
 
-statePopulations = {
+const statePopulations = {
     AL:4903185,
     AK:731545,
     AZ:7278717,
@@ -51,7 +51,7 @@ statePopulations = {
     WI:5822434,
     WY:578759
 }
-stateColors = {}
+let stateColors = {}
 
 //  ------------------------------------------------
 //                   make lien graph for single state
@@ -630,8 +630,18 @@ function get_checked_states(){
     return checkedStates
 }
 
-function update_graph(){
-    
+function update_graph(myChart){
+        //get list of states that are currently checked
+        let checkedStates = get_checked_states()
+        //get graph-type that is selected
+        let metric = document.querySelector('input[name = "metric"]:checked').value
+
+        // destroy old chart if it exists
+        if(myChart['chart'] !== null){
+            //myChart['chart'].destroy()
+            myChart.chart.then(result=>result.destroy())
+        }
+        myChart['chart'] = state_daily_graph(statesDaily, checkedStates, 'myChart', metric)
 }
 
 //  ------------------------------------------------
@@ -655,34 +665,36 @@ colorButton.addEventListener('click', event =>{
 //add event listeners for graph selection radio options
 radios.forEach(radio => {
     radio.addEventListener('click', event => {
-        //get list of states that are currently checked
-        let checkedStates = get_checked_states()
-        //get graph-type that is selected
-        let metric = document.querySelector('input[name = "metric"]:checked').value
+        update_graph(myChart)
+        ////get list of states that are currently checked
+        //let checkedStates = get_checked_states()
+        ////get graph-type that is selected
+        //let metric = document.querySelector('input[name = "metric"]:checked').value
 
-        // destroy old chart if it exists
-        if(myChart['chart'] !== null){
-            //myChart['chart'].destroy()
-            myChart.chart.then(result=>result.destroy())
-        }
-        myChart['chart'] = state_daily_graph(statesDaily, checkedStates, 'myChart', metric)
+        //// destroy old chart if it exists
+        //if(myChart['chart'] !== null){
+            ////myChart['chart'].destroy()
+            //myChart.chart.then(result=>result.destroy())
+        //}
+        //myChart['chart'] = state_daily_graph(statesDaily, checkedStates, 'myChart', metric)
     })
 });
 
 // add event listener to each state checkbox
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('click', event =>{
+        update_graph(myChart)
         //get list of states that are currently checked
-        let checkedStates = get_checked_states()
-        //get graph-type that is selected
-        let metric = document.querySelector('input[name = "metric"]:checked').value
+        //let checkedStates = get_checked_states()
+        ////get graph-type that is selected
+        //let metric = document.querySelector('input[name = "metric"]:checked').value
 
-        // destroy old chart if it exists
-        if(myChart['chart'] !== null){
-            //myChart['chart'].destroy()
-            myChart.chart.then(result=>result.destroy())
-        }
-        myChart['chart'] = state_daily_graph(statesDaily, checkedStates, 'myChart', metric)
+        //// destroy old chart if it exists
+        //if(myChart['chart'] !== null){
+            ////myChart['chart'].destroy()
+            //myChart.chart.then(result=>result.destroy())
+        //}
+        //myChart['chart'] = state_daily_graph(statesDaily, checkedStates, 'myChart', metric)
     })
 })
 
