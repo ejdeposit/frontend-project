@@ -85,14 +85,17 @@ function get_state_dailies(st){
     makes single call to api to get daily totals for one state using fetch api.  makes chart for just one state
     */
     let state= st
+    state.toLowerCas();
     let requesturl= `https://covidtracking.com/api/v1/states/${state}/daily.json`
 
     fetch(`${requesturl}`)
     .then(response => {
         //check response status code
+        console.log(response)
         return response.json()
     })
     .then(data => {
+        console.log(data)
         //create array of point obnjects
         let points=[]
         let i = 1
@@ -400,6 +403,7 @@ let get_data_async = async (st) => {
     makes single async call to api for one state daily numbers
     */
     let state= st
+    state = state.toLowerCase()
     let requesturl= `https://covidtracking.com/api/v1/states/${state}/daily.json`
     let response = await fetch(requesturl)
     let data = await response.json()
