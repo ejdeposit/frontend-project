@@ -75,6 +75,7 @@ fieldset{
 */
 div#output{
     padding: 10px;
+    padding-bottom: 30px;
 }
 
 @media (max-width: 468px){

@@ -659,24 +659,18 @@ let radios = Object.values(document.getElementsByClassName('graph-type'));
 let colorButton = document.querySelector('button#color-change');
 
 colorButton.addEventListener('click', event =>{
-   console.log('click') 
+    let statesWithColors = Object.keys(stateColors)
+    statesWithColors.forEach(state => {
+        stateColors[state] = randColor() 
+    })
+    update_graph(myChart)
+    console.log('click') 
 });
 
 //add event listeners for graph selection radio options
 radios.forEach(radio => {
     radio.addEventListener('click', event => {
         update_graph(myChart)
-        ////get list of states that are currently checked
-        //let checkedStates = get_checked_states()
-        ////get graph-type that is selected
-        //let metric = document.querySelector('input[name = "metric"]:checked').value
-
-        //// destroy old chart if it exists
-        //if(myChart['chart'] !== null){
-            ////myChart['chart'].destroy()
-            //myChart.chart.then(result=>result.destroy())
-        //}
-        //myChart['chart'] = state_daily_graph(statesDaily, checkedStates, 'myChart', metric)
     })
 });
 
@@ -684,17 +678,6 @@ radios.forEach(radio => {
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('click', event =>{
         update_graph(myChart)
-        //get list of states that are currently checked
-        //let checkedStates = get_checked_states()
-        ////get graph-type that is selected
-        //let metric = document.querySelector('input[name = "metric"]:checked').value
-
-        //// destroy old chart if it exists
-        //if(myChart['chart'] !== null){
-            ////myChart['chart'].destroy()
-            //myChart.chart.then(result=>result.destroy())
-        //}
-        //myChart['chart'] = state_daily_graph(statesDaily, checkedStates, 'myChart', metric)
     })
 })
 
