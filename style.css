@@ -22,13 +22,16 @@ div{
 .graph-options{
     justify-content: space-between;
 }
+.graph-flex-item{
+    width:18em;
+}
 /*
 width: 200px;
 height: 100px;
 */
 .state-flex-item{
     border-radius: 5px;
-    width: 9em
+    width: 9em;
 }
 
 .input-container{
