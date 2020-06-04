@@ -630,9 +630,14 @@ function get_checked_states(){
     return checkedStates
 }
 
+function update_graph(){
+    
+}
+
 //  ------------------------------------------------
 //             main            
 //  ------------------------------------------------
+
 
 statesDaily = {};
 myChart = {};
