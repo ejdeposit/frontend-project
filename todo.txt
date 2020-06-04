@@ -59,3 +59,10 @@ started by working on logic of calls and making displays
 12.  2 week cumulivies.  spicing each list multiple times which decreases the list length unless you attempt to splice more than is in the list then it takes the remaining and leaves the list length unchanged leading to an infinite loop.  
 
 13.  refactored code and deleted a variable.  but code kept runnings as if the variable were still accessable leading to really confounding errors
+
+14. added growth rate
+
+
+14. add save color feature
+
+15. fixed accessibility: added fieldset and legends, page sections, changed h3 to h2 since no h2s were present.  ie. got rid of skipped heading level

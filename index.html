@@ -14,315 +14,328 @@
   </head>
   <body>
     <div class="container-container">
-      <div class="title">
-        <h1>Monitor The Coronavirus Outbreak</h1>
-      </div>
-      <div id="variable-input" class="input-container container">
-        <h3>1. Select a way to monitor the outbreak</h3>
-        <div class="options-flex-container graph-options">
-          <div class="graph-flex-item">
-            <input type="radio" id="deathIncrease" name="metric" value="deathIncrease" class="graph-type" checked>
-            <label for="deathIncrease">New Deaths</label>
-          </div>
-
-          <div class="graph-flex-item">
-            <input type="radio" id="positiveIncrease" name="metric" value="positiveIncrease" class="graph-type">
-            <label for="positiveIncrease">New Cases</label>
-          </div>
-
-          <div class="graph-flex-item">
-            <input type="radio" id="avgPositiveIncrease" name="metric" value="avgPositiveIncrease" class="graph-type">
-            <label for="avgPositiveIncrease">Average Daily Cases</label>
-          </div>
-
-          <div class="graph-flex-item">
-            <input type="radio" id="avgDeathIncrease" name="metric" value="avgDeathIncrease" class="graph-type">
-            <label for="avgDeathIncrease">Average Daily Deaths</label>
-          </div>
-
-          <div class="graph-flex-item">
-            <input type="radio" id="deathsPerK" name="metric" value="deathsPerK" class="graph-type">
-            <label for="deathsPerK">New Deaths Relative to Population</label>
-          </div>
-
-          <div class="graph-flex-item">
-            <input type="radio" id="casesPerK" name="metric" value="casesPerK" class="graph-type">
-            <label for="casesPerK">New Cases Relative to Population</label>
-          </div>
-
-          <div class="graph-flex-item">
-            <input type="radio" id="avgDailyGrowthRateCases" name="metric" value="avgDailyGrowthRateCases" class="graph-type">
-            <label for="avgDailyGrowthRateCases">Average Daily Growth Rate in Cases</label>
-          </div>
-
-          <div class="graph-flex-item">
-            <input type="radio" id="avgDailyGrowthRateDeaths" name="metric" value="avgDailyGrowthRateDeaths" class="graph-type">
-            <label for="avgDailyGrowthRateDeaths">Average Daily Growth Rate in Deaths</label>
-          </div>
+      <header>
+        <div class="title">
+          <h1>Monitor The Coronavirus Outbreak</h1> 
         </div>
-      </div>
+      </header>
+      <main>
+        <div id="variable-input" class="input-container container">
+          <fieldset>
+            <legend>
+              <h2>1. Select a way to monitor the outbreak</h2>
+            </legend>
+            <div class="options-flex-container graph-options">
+              <div class="graph-flex-item">
+                <input type="radio" id="deathIncrease" name="metric" value="deathIncrease" class="graph-type" checked>
+                <label for="deathIncrease">New Deaths</label>
+              </div>
 
-      <div class="input-container container">
-        <h3>2. Select a state</h3>
-        <div id="state-input" class="container options-flex-container">
-          <!--start states-->
-          <div class="state-flex-item">
-            <input type="checkbox" class="state" id="alabama" name="alabama" value="AL">
-            <label for="alabama">Alabama</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="alaska" name="alaska" value="AK">
-            <label for="alaska">Alaska</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="arizona" name="arizona" value="AZ">
-            <label for="arizona">Arizona</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="arkansas" name="arkansas" value="AR">
-            <label for="arkansas">Arkansas</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="california" name="california" value="CA">
-            <label for="california">California</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="colorado" name="colorado" value="CO">
-            <label for="colorado">Colorado</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="connecticut" name="connecticut" value="CT">
-            <label for="connecticut">Connecticut</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="delaware" name="delaware" value="DE">
-            <label for="delaware">Delaware</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="florida" name="florida" value="FL">
-            <label for="florida">Florida</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="georgia" name="georgia" value="GA">
-            <label for="georgia">Georgia</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="hawaii" name="hawaii" value="HI">
-            <label for="hawaii">Hawaii</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="idaho" name="idaho" value="ID">
-            <label for="idaho">Idaho</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="illinois" name="illinois" value="IL">
-            <label for="illinois">Illinois</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="indiana" name="indiana" value="IN">
-            <label for="indiana">Indiana</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="iowa" name="iowa" value="IA">
-            <label for="iowa">Iowa</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="kansas" name="kansas" value="KS">
-            <label for="kansas">Kansas</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="kentucky" name="kentucky" value="KY">
-            <label for="kentucky">Kentucky</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="louisiana" name="louisiana" value="LA">
-            <label for="louisiana">Louisiana</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="maine" name="maine" value="ME">
-            <label for="maine">Maine</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="maryland" name="maryland" value="MD">
-            <label for="maryland">Maryland</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="massachusetts" name="massachusetts" value="MA">
-            <label for="massachusetts">Massachusetts</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="michigan" name="michigan" value="MI">
-            <label for="michigan">Michigan</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="minnesota" name="minnesota" value="MN">
-            <label for="minnesota">Minnesota</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="mississippi" name="mississippi" value="MS">
-            <label for="mississippi">Mississippi</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="missouri" name="missouri" value="MO">
-            <label for="missouri">Missouri</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="montana" name="montana" value="MT">
-            <label for="montana">Montana</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="nebraska" name="nebraska" value="NE">
-            <label for="nebraska">Nebraska</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="nevada" name="nevada" value="NV">
-            <label for="nevada">Nevada</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="new hampshire" name="new hampshire" value="NH">
-            <label for="new hampshire">New Hampshire</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="new jersey" name="new jersey" value="NJ">
-            <label for="new jersey">New Jersey</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="new mexico" name="new mexico" value="NM">
-            <label for="new mexico">New Mexico</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="new york" name="new york" value="NY">
-            <label for="new york">New York</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="north carolina" name="north carolina" value="NC">
-            <label for="north carolina">North Carolina</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="north dakota" name="north dakota" value="ND">
-            <label for="north dakota">North Dakota</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="ohio" name="ohio" value="OH">
-            <label for="ohio">Ohio</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="oklahoma" name="oklahoma" value="OK">
-            <label for="oklahoma">Oklahoma</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="oregon" name="oregon" value="OR">
-            <label for="oregon">Oregon</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="pennsylvania" name="pennsylvania" value="PA">
-            <label for="pennsylvania">Pennsylvania</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="rhode island" name="rhode island" value="RI">
-            <label for="rhode island">Rhode Island</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="south carolina" name="south carolina" value="SC">
-            <label for="south carolina">South Carolina</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="south dakota" name="south dakota" value="SD">
-            <label for="south dakota">South Dakota</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="tennessee" name="tennessee" value="TN">
-            <label for="tennessee">Tennessee</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="texas" name="texas" value="TX">
-            <label for="texas">Texas</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="utah" name="utah" value="UT">
-            <label for="utah">Utah</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="vermont" name="vermont" value="VT">
-            <label for="vermont">Vermont</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="virginia" name="virginia" value="VA">
-            <label for="virginia">Virginia</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="washington" name="washington" value="WA" checked>
-            <label for="washington">Washington</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="west virginia" name="west virginia" value="WV">
-            <label for="west virginia">West Virginia</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="wisconsin" name="wisconsin" value="WI">
-            <label for="wisconsin">Wisconsin</label>
-            </div>
-            
-            <div class="state-flex-item">
-            <input type="checkbox" class="state" id="wyoming" name="wyoming" value="WY">
-            <label for="wyoming">Wyoming</label>
-            </div>
+              <div class="graph-flex-item">
+                <input type="radio" id="positiveIncrease" name="metric" value="positiveIncrease" class="graph-type">
+                <label for="positiveIncrease">New Cases</label>
+              </div>
 
-         <!-- states end--> 
+              <div class="graph-flex-item">
+                <input type="radio" id="avgPositiveIncrease" name="metric" value="avgPositiveIncrease" class="graph-type">
+                <label for="avgPositiveIncrease">Average Daily Cases</label>
+              </div>
+
+              <div class="graph-flex-item">
+                <input type="radio" id="avgDeathIncrease" name="metric" value="avgDeathIncrease" class="graph-type">
+                <label for="avgDeathIncrease">Average Daily Deaths</label>
+              </div>
+
+              <div class="graph-flex-item">
+                <input type="radio" id="deathsPerK" name="metric" value="deathsPerK" class="graph-type">
+                <label for="deathsPerK">New Deaths Relative to Population</label>
+              </div>
+
+              <div class="graph-flex-item">
+                <input type="radio" id="casesPerK" name="metric" value="casesPerK" class="graph-type">
+                <label for="casesPerK">New Cases Relative to Population</label>
+              </div>
+
+              <div class="graph-flex-item">
+                <input type="radio" id="avgDailyGrowthRateCases" name="metric" value="avgDailyGrowthRateCases" class="graph-type">
+                <label for="avgDailyGrowthRateCases">Average Daily Growth Rate in Cases</label>
+              </div>
+
+              <div class="graph-flex-item">
+                <input type="radio" id="avgDailyGrowthRateDeaths" name="metric" value="avgDailyGrowthRateDeaths" class="graph-type">
+                <label for="avgDailyGrowthRateDeaths">Average Daily Growth Rate in Deaths</label>
+              </div>
+            </div>
+          </fieldset>
         </div>
-      </div>
 
-      <div id="output" class="container">
-        <canvas id="myChart" aria-label="donut chart" role="img"></canvas>
-      </div>
+        <div class="input-container container" id="states-input-section">
+          <fieldset>
+            <legend>
+              <h2>2. Select a state</h2>
+            </legend>
+
+            <div id="state-input" class="container options-flex-container">
+              <!--start states-->
+              <div class="state-flex-item">
+                <input type="checkbox" class="state" id="alabama" name="alabama" value="AL">
+                <label for="alabama">Alabama</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="alaska" name="alaska" value="AK">
+                <label for="alaska">Alaska</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="arizona" name="arizona" value="AZ">
+                <label for="arizona">Arizona</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="arkansas" name="arkansas" value="AR">
+                <label for="arkansas">Arkansas</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="california" name="california" value="CA">
+                <label for="california">California</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="colorado" name="colorado" value="CO">
+                <label for="colorado">Colorado</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="connecticut" name="connecticut" value="CT">
+                <label for="connecticut">Connecticut</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="delaware" name="delaware" value="DE">
+                <label for="delaware">Delaware</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="florida" name="florida" value="FL">
+                <label for="florida">Florida</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="georgia" name="georgia" value="GA">
+                <label for="georgia">Georgia</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="hawaii" name="hawaii" value="HI">
+                <label for="hawaii">Hawaii</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="idaho" name="idaho" value="ID">
+                <label for="idaho">Idaho</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="illinois" name="illinois" value="IL">
+                <label for="illinois">Illinois</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="indiana" name="indiana" value="IN">
+                <label for="indiana">Indiana</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="iowa" name="iowa" value="IA">
+                <label for="iowa">Iowa</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="kansas" name="kansas" value="KS">
+                <label for="kansas">Kansas</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="kentucky" name="kentucky" value="KY">
+                <label for="kentucky">Kentucky</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="louisiana" name="louisiana" value="LA">
+                <label for="louisiana">Louisiana</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="maine" name="maine" value="ME">
+                <label for="maine">Maine</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="maryland" name="maryland" value="MD">
+                <label for="maryland">Maryland</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="massachusetts" name="massachusetts" value="MA">
+                <label for="massachusetts">Massachusetts</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="michigan" name="michigan" value="MI">
+                <label for="michigan">Michigan</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="minnesota" name="minnesota" value="MN">
+                <label for="minnesota">Minnesota</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="mississippi" name="mississippi" value="MS">
+                <label for="mississippi">Mississippi</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="missouri" name="missouri" value="MO">
+                <label for="missouri">Missouri</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="montana" name="montana" value="MT">
+                <label for="montana">Montana</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="nebraska" name="nebraska" value="NE">
+                <label for="nebraska">Nebraska</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="nevada" name="nevada" value="NV">
+                <label for="nevada">Nevada</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="new hampshire" name="new hampshire" value="NH">
+                <label for="new hampshire">New Hampshire</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="new jersey" name="new jersey" value="NJ">
+                <label for="new jersey">New Jersey</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="new mexico" name="new mexico" value="NM">
+                <label for="new mexico">New Mexico</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="new york" name="new york" value="NY">
+                <label for="new york">New York</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="north carolina" name="north carolina" value="NC">
+                <label for="north carolina">North Carolina</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="north dakota" name="north dakota" value="ND">
+                <label for="north dakota">North Dakota</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="ohio" name="ohio" value="OH">
+                <label for="ohio">Ohio</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="oklahoma" name="oklahoma" value="OK">
+                <label for="oklahoma">Oklahoma</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="oregon" name="oregon" value="OR">
+                <label for="oregon">Oregon</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="pennsylvania" name="pennsylvania" value="PA">
+                <label for="pennsylvania">Pennsylvania</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="rhode island" name="rhode island" value="RI">
+                <label for="rhode island">Rhode Island</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="south carolina" name="south carolina" value="SC">
+                <label for="south carolina">South Carolina</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="south dakota" name="south dakota" value="SD">
+                <label for="south dakota">South Dakota</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="tennessee" name="tennessee" value="TN">
+                <label for="tennessee">Tennessee</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="texas" name="texas" value="TX">
+                <label for="texas">Texas</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="utah" name="utah" value="UT">
+                <label for="utah">Utah</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="vermont" name="vermont" value="VT">
+                <label for="vermont">Vermont</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="virginia" name="virginia" value="VA">
+                <label for="virginia">Virginia</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="washington" name="washington" value="WA" checked>
+                <label for="washington">Washington</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="west virginia" name="west virginia" value="WV">
+                <label for="west virginia">West Virginia</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="wisconsin" name="wisconsin" value="WI">
+                <label for="wisconsin">Wisconsin</label>
+                </div>
+            
+                <div class="state-flex-item">
+                <input type="checkbox" class="state" id="wyoming" name="wyoming" value="WY">
+                <label for="wyoming">Wyoming</label>
+                </div>
+
+             <!-- states end--> 
+            </div>
+          </fieldset>
+        </div>
+
+        <div id="output" class="container">
+          <canvas id="myChart" aria-label="donut chart" role="img"></canvas>
+        </div>
+      </main>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>

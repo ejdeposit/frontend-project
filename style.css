@@ -65,6 +65,14 @@ height: 100px;
     width: 12em;
 }
 */
+fieldset{
+    border: 0px;
+  }
+/*
+#states-input-section{
+    padding-left: 25px;
+}
+*/
 
 @media (max-width: 468px){
     div.form{
