@@ -634,13 +634,18 @@ function get_checked_states(){
 //             main            
 //  ------------------------------------------------
 
-statesDaily = {}
+statesDaily = {};
 myChart = {};
 myChart['chart'] = null;
 
 // get all checkboxes and add event listener
-let checkboxes = Object.values(document.getElementsByClassName('state'))
-let radios = Object.values(document.getElementsByClassName('graph-type'))
+let checkboxes = Object.values(document.getElementsByClassName('state'));
+let radios = Object.values(document.getElementsByClassName('graph-type'));
+let colorButton = document.querySelector('button#color-change');
+
+colorButton.addEventListener('click', event =>{
+   console.log('click') 
+});
 
 //add event listeners for graph selection radio options
 radios.forEach(radio => {
