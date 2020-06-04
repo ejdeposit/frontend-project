@@ -51,6 +51,7 @@ statePopulations = {
     WI:5822434,
     WY:578759
 }
+stateColors = {}
 
 //  ------------------------------------------------
 //                   make lien graph for single state
@@ -335,7 +336,16 @@ function make_datasets(datas, x, y){
     datasets=[];
     states= Object.keys(datas);
         states.forEach(state =>{
-            let randomColor = randColor()
+        let statesWithColors = Object.keys(stateColors);
+        let randomColor = ''
+        if(statesWithColors.includes(state, 0)){
+            randomColor = stateColors[state];
+        }
+        else{
+            randomColor = randColor();
+            stateColors[state] = randomColor;
+        }
+
 
             points = datas[state].map(date =>{
                 let dateStr= date[x].toString()
