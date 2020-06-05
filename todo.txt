@@ -1,58 +1,29 @@
-to do:
-x add event listeners to checkboxes
-x add check to data structure to see if data already been called
-x get value from check box and use to make api call
-x parse api data and return from function that makes call
-x better date format?
-x add data to graph
-x fix wrong dates
-x refactor code so make graph just takes dataset, pull make subset and get data out of it
-- add checkbox to select all states
-- add option to divide by population of states
-x scale doesn't clear in between adding states and takin away
-x need to add css to make presentable
-x ensure responsive.  (mistake to leave this too the end)
-x add way to destory graph while window is being resized
-x add listener for graph type
-- save color for each state
-x add media query for mobile
-x make graph full screen on mobile
-- make graph height bigger.  might be auto right now
-- filter out negative numbers
-- broken when nothing selected for 7 day average
 
-graphs 
-x new daily deaths/cases
-- new cases per infection- if below one then virus would die out
-x three day avg deats/ cases https://www.statisticshowto.com/moving-average/
-- weekly growth rate 
+Journal
 
-notes:
+ 1. I started by making a function to make a single API call using fetch to get the historical number of cases and deaths for a single state.  Next I needed to figure out how to make multiple api calls while waiting on the results of each call before preceding to graph the results.  After reading a little bit about promises and not totally understanding how to make it work I ended up using the async/await functions to make the ajax call.   
 
-started by working on logic of calls and making displays
+2. Next I implemented functions to graph the data for each state.  I started by just graphing the numbers from the API call directly, then I figured out how to graph dates which required parsing the strings from the api call and figuring out how to graph dates with charts.js.  I had to tinker around with the code for a while to get it to actually graph by date, and in the end I wan't not sure what i did to fix the problem.  Then the dates weren't correct because months ware zero indexed, so I had to fix that.
 
-1. made api call.  Figured out how to make multiple api calls.  Works but probably not necessary since the graph is made each time a box is checked and not possible to check more than one box at a time.  struggled with await and async for no reason.  ended up refactoring code a number of times to get organization that worked with async.  
+3. Added event to check boxes for states so that a new graph is made each time the user selects a new state or unselects a state. 
 
-2. graphed data with dates.  tinkering required to get it to actually graph by date.  not sure what i did to fix the problem in the end.  Still no parsing dates correctly for some reason
+4. Added data structure to save results from each API call to avoid duplicate api call.  This required refactoring code and working through bugs that occurred as a result.
 
-3. added event lisnters to check boxes for states.  no real difficulties here
+5.  Added radio input to graph deaths API call.  Just required tinkering with existing code and adding some parameters to existing functions calls. 
 
-4. avoid duplicate api calls by saving a past calls in object.  required refactoring cods and working through bugs.
+6. The graph scale would get all messed up after making a graph multiple times from checking and rechecking different states.  The solution was to use chart destroy() I had to add some additional parameters and return values to some functions so that I cold  catch the chart object variable, but the chart was a promise so I was still having trouble calling destroy() on it.  The solution was to call Then() on the promise and then use destroy within then().
 
-5.  added option to graph different parts of data from api.  just required tinkering with existing code and adding some paramters to existing functions calls. functions calls
+7. I put the check boxes inside a flex container to make them look more neat.  I wanted them to be in arranged in multiple columns so first I laid them out in a column but this made one long column unless I set a max height for the container, but I didn't want to set a max height because I wanted the checkboxes to take up more room vertically if the user resizes the window.  The solution was was to arrange the checkboxes in rows, set the width of the checkbox flex item, and use space between to arrange them in resizable columns.
 
-6. fixed scale issues when making repeated calls.  used chart destroy() which found lot of hacky solutions online because apparently I'm not the only one who couldn't get it to work.  had to catch the chart opbject in global var, but it was promise so couldn't call desotry on it.  solution was to call then on promise to destroy it in function within then
+8. I decided to make graph as soon as page loads to give better visual clue about what to do for user.  After reading the Design of Everyday Things, I decided it would be confusing to present the user with a bunch of check boxes with no indication of what checking them wold actually do.  
 
-7. made states a flex items so they can be in rows.  made graph as soon as page loads to give better visual clue about what to do for user.  
-
-8. used flex box to make things look nicer.  adjust check boxes.  trying to use to center everything, but it breaks everything for some reason.  try set width of input cotainers to 100 percent and container container to 80%.  problem was width instead of max width but still decided to cetner everything horizontally in one big container
+8. Next I added a flex container to add margins to the sides of the page and to center everything, but it breaks everything for some reason.  try set width of input cotainers to 100 percent and container container to 80%.  problem was width instead of max width but still decided to cetner everything horizontally in one big container
 
 
 9. added fonts added event listener for graph type radio
 
 10.  get states to look nice.  overflow out of div if min not set then they don't make multiple columns.  solution was to make rows and then set width to large enought ot accomodate state names
 
-890 lines
 
 11. added more graphing options 7 day avg.  debugging took some time.  added title
 
@@ -66,3 +37,39 @@ started by working on logic of calls and making displays
 14. add save color feature
 
 15. fixed accessibility: added fieldset and legends, page sections, changed h3 to h2 since no h2s were present.  ie. got rid of skipped heading level
+
+16. added button to change colors
+
+to do:
+x add event listeners to checkboxes
+x add check to data structure to see if data already been called
+x get value from check box and use to make api call
+x parse api data and return from function that makes call
+x better date format?
+x add data to graph
+x fix wrong dates
+x refactor code so make graph just takes dataset, pull make subset and get data out of it
+- add checkbox to select all states
+x add option to divide by population of states
+x scale doesn't clear in between adding states and takin away
+x need to add css to make presentable
+x ensure responsive.  (mistake to leave this too the end)
+x add way to destory graph while window is being resized
+x add listener for graph type
+- save color for each state
+x add media query for mobile
+x make graph full screen on mobile
+- make graph height bigger.  might be auto right now
+- filter out negative numbers
+x broken when nothing selected for 7 day average
+- clean up code 
+
+graphs 
+x new daily deaths/cases
+- new cases per infection- if below one then virus would die out
+x three day avg deats/ cases https://www.statisticshowto.com/moving-average/
+x weekly growth rate 
+
+notes:
+
+started by working on logic of calls and making displays
