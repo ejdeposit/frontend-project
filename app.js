@@ -54,12 +54,14 @@ const statePopulations = {
 let stateColors = {}
 
 //  ------------------------------------------------
-//                   make lien graph for single state
+//                   make line graph for single state
 //                   from single fetch to api 
 //  ------------------------------------------------
 
 function make_graph(chartID, points){
-    // https://codepen.io/DanEnglishby/pen/dqyyzp
+    /*
+    code from https://codepen.io/DanEnglishby/pen/dqyyzp
+    */
     var ctx = document.getElementById('myChart');
 
     var options = {responsive: true, // Instruct chart js to respond nicely.
@@ -143,7 +145,7 @@ async function make_call(st){
     })
 }
 //  ------------------------------------------------
-//                  make multi line graph 
+//                  make multi-line graph 
 //                  without dates                   
 //  ------------------------------------------------
 
@@ -159,6 +161,8 @@ async function make_graphs_numbers(states){
     //make graph
     var ctx = document.getElementById('myChart');
 
+
+    // code from https://codepen.io/DanEnglishby/pen/dqyyzp
     var options = {responsive: true, // Instruct chart js to respond nicely.
     maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
     };
@@ -179,8 +183,6 @@ async function make_graphs_numbers(states){
 //                  graph by date
 //  ------------------------------------------------
 
-// TODO
-// add y variable from api call as variable
 async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelection){
     /*
     input: pass API calls, divID, list of states
@@ -252,13 +254,9 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelectio
             datas[state]= pastCalls[state]
         }
     })
-    console.log('combined data')
-    console.log(datas)
 
     //parse data from call.  pull out dates, and check numbers return list of 
     let dataSubsets = get_data_subsets(datas, ['date', yVariable])
-    console.log('data subsets')
-    console.log(dataSubsets)
 
     //transform datasubsets for 7 day avg.  should be able to maintain order
     if(sevenDayAvg){
@@ -267,9 +265,6 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelectio
 
     if(growthRate){
         dataSubsets = growth_rate(dataSubsets)
-        //dataSubsets= growth_rate(dataSubsets)
-        console.log('growth rates')
-        console.log(dataSubsets)
     }
     
     if(twoWeekCum){
@@ -291,11 +286,7 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelectio
 }
 
 function date_graph(datasets, graphTitle){
-    /*
-    input
-    */
-
-    // ctx is vanvase
+    // ctx is canvase
     var ctx = document.getElementById('myChart');
         
     var options = {
@@ -304,8 +295,11 @@ function date_graph(datasets, graphTitle){
             text: graphTitle,
             fontSize: 20
         },
+
+        // code from https://codepen.io/DanEnglishby/pen/dqyyzp
         responsive: true, // Instruct chart js to respond nicely.
         maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+
         scales: {
             xAxes: [{
                 type: 'time',
@@ -406,7 +400,6 @@ function get_data_subsets(datas, members){
     return subset
 }
 
-// same function for both date graphs and number graphs
 
 let get_data_async = async (st) => {
     /* 
@@ -427,14 +420,13 @@ async function make_calls(states){
     // list of lists
     pointss=[]
     datas = {}
-    //let newPoints = await get_data_async(states[0])
-    //pointss.push(newPoints)
+
     for await(let state of states){
         let newPoints = await get_data_async(state);
         pointss.push(newPoints);
         datas[state] = newPoints;
     }
-    //return pointss
+
     return datas;
 }
 
@@ -473,7 +465,6 @@ function seven_day_avg(datas){
             let index = data.indexOf(day);
             let week = []
             week.push(day[yVariable])
-            //avg correct up to here
             
             //get 3 below
             let i = index-1;
@@ -583,7 +574,8 @@ function growth_rate(datas){
     }
     let newDatas = {}
     let yVariable = get_y_variable(datas)
-    //accumulate in 1 week intervals liek previous function
+
+    //accumulate in 1 week intervals like previous function
     states.forEach(state => {
         let data = datas[state]
         console.log(`data for ${state}`)
@@ -623,7 +615,6 @@ function get_checked_states(){
     checkboxes = checkboxes.filter(checkbox => checkbox.checked)
 
     // get value of each checkbox
-    
     checkboxes.forEach(checkbox =>{
         checkedStates.push(checkbox.defaultValue)
     })
@@ -633,6 +624,7 @@ function get_checked_states(){
 function update_graph(myChart){
         //get list of states that are currently checked
         let checkedStates = get_checked_states()
+        
         //get graph-type that is selected
         let metric = document.querySelector('input[name = "metric"]:checked').value
 
@@ -681,8 +673,6 @@ checkboxes.forEach(checkbox => {
     })
 })
 
-// make graph
-//let checkedStates = get_checked_states()
-//let metric = document.querySelector('input[name = "metric"]:checked').value
+// make graph to start
 myChart['chart'] = state_daily_graph(statesDaily, ['WA'], 'myChart', 'deathIncrease')
 

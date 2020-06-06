@@ -25,15 +25,10 @@ div{
 .graph-flex-item{
     width:18em;
 }
-/*
-width: 200px;
-height: 100px;
-*/
 .state-flex-item{
     border-radius: 5px;
     width: 9em;
 }
-
 .input-container{
     background-color: white;
     align-content: center;
@@ -60,24 +55,13 @@ height: 100px;
 #output{
     height: 400px
 }
-/*
-.graph-flex-item{
-    width: 12em;
-}
-*/
 fieldset{
     border: 0px;
   }
-/*
-#states-input-section{
-    padding-left: 25px;
-}
-*/
 div#output{
     padding: 10px;
     padding-bottom: 30px;
 }
-
 @media (max-width: 468px){
     div.form{
       background-color:rgb(255,255,255) ;
@@ -87,7 +71,6 @@ div#output{
       width: 90%;
     }
   }
-
 @media (max-width: 414px){
     #output{
         height: 250px
