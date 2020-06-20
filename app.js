@@ -213,12 +213,12 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelectio
     else if(graphSelection ==='deathsPerK'){
         yVariable = 'deathIncrease';
         twoWeekCum = true;
-        graphTitle = "New Deaths Per 1000 Residents";
+        graphTitle = "New Deaths Per 10,000 Residents";
     }
     else if(graphSelection ==='casesPerK'){
         yVariable = 'positiveIncrease';
         twoWeekCum = true;
-        graphTitle = "New cases Per 1000 Residents";
+        graphTitle = "New cases Per 10,000 Residents";
     }
     else if(graphSelection === 'avgDailyGrowthRateCases'){
         console.log(graphSelection)
@@ -268,7 +268,7 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelectio
     }
     
     if(twoWeekCum){
-        dataSubsets = two_week_per_k(dataSubsets)
+        dataSubsets = week_total_per_tenk(dataSubsets)
     } 
 
     //filter out negative numbers if deats or 
@@ -503,6 +503,53 @@ function get_y_variable(datas){
     let keys = Object.keys(sampleData)
     return keys.filter(x => x !== "date" )[0]
 
+}
+
+function week_total_per_tenk(datas){
+    let reducedData={}
+    let states = Object.keys(datas)
+    if(states.length === 0){
+        return {}
+    }
+
+    let yVariable = get_y_variable(datas)
+
+    states.forEach(state => {
+        //split list into list of 7 day lists
+        let weekCums =[]
+        let max = datas[state].length
+
+        for(let i=0; i+7 < max; i=i+7){
+            let week = []
+            week.push(datas[state][i])
+            week.push(datas[state][i+1])
+            week.push(datas[state][i+2])
+            week.push(datas[state][i+4])
+            week.push(datas[state][i+5])
+            week.push(datas[state][i+6])
+            week.push(datas[state][i+7])
+            weekCums.push(week)
+        }
+        
+        //reduce each lists
+        //use date from first item in list
+        reducedData[state] = [] 
+
+        weekCums.forEach(week => {
+            let dateStr= week[0]['date']
+            let accum = 0
+            week.forEach(day =>{
+                accum = accum + day[yVariable]
+            });
+            let newWeek = {};
+            newWeek[yVariable]=10000 * accum/statePopulations[state];
+            newWeek['date']=dateStr;
+            reducedData[state].push(newWeek)
+        });
+    });
+
+    //divide data by pop or separate function
+    return reducedData
 }
 
 function two_week_per_k(datas){
