@@ -394,6 +394,7 @@ function get_data_subsets(datas, members){
             })
             points.push(newPoint)
         })
+        points = points.filter(point => point[members[1]] >= 0);
         subset[state]= points
     })
 
