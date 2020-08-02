@@ -213,12 +213,12 @@ async function state_daily_graph(pastCalls, statesInput, outPutId, graphSelectio
     else if(graphSelection ==='deathsPerK'){
         yVariable = 'deathIncrease';
         twoWeekCum = true;
-        graphTitle = "New Deaths Per 10,000 Residents";
+        graphTitle = "New Deaths Per 100,000 Residents";
     }
     else if(graphSelection ==='casesPerK'){
         yVariable = 'positiveIncrease';
         twoWeekCum = true;
-        graphTitle = "New cases Per 10,000 Residents";
+        graphTitle = "New cases Per 100,000 Residents";
     }
     else if(graphSelection === 'avgDailyGrowthRateCases'){
         console.log(graphSelection)
@@ -543,7 +543,7 @@ function week_total_per_tenk(datas){
                 accum = accum + day[yVariable]
             });
             let newWeek = {};
-            newWeek[yVariable]=10000 * accum/statePopulations[state];
+            newWeek[yVariable]=100000 * accum/statePopulations[state];
             newWeek['date']=dateStr;
             reducedData[state].push(newWeek)
         });
