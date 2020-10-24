@@ -51,3 +51,7 @@ Coronavirus Dashboard app displays graphs to compare the daily number of cases/d
 18. Fixed accessibility. Added fieldset and legends, page sections, got rid of skipped heading level.
 
 19. Added button to change colors in case the colors on the line graph are too similar. 
+
+# install
+install express
+`npm i node-fetch --save`
